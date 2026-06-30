@@ -1,4 +1,4 @@
-package org.bnbalint.models;
+package org.bnbalint.snackdaddy.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
@@ -17,7 +17,7 @@ public class Ingredient {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(insertable = false, updatable = false)
-    private int id;
+    private long id;
 
     @Column
     private String name;
@@ -43,7 +43,7 @@ public class Ingredient {
     //-------------------------------------------
     // Getters and Setters
     //
-    public int getId() {
+    public long getId() {
         return id;
     }
 

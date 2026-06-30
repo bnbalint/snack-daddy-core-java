@@ -1,4 +1,4 @@
-package org.bnbalint.models;
+package org.bnbalint.snackdaddy.models;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -19,7 +19,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(insertable = false, updatable = false)
-    private int id;
+    private long id;
 
     @Column
     private String firstName;
@@ -70,7 +70,7 @@ public class User {
     //-------------------------------------------
     // Getters and Setters
     //
-    public int getId() {
+    public long getId() {
         return id;
     }
 
