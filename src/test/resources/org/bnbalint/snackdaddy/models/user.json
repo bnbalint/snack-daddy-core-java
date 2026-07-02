@@ -1,0 +1,30 @@
+{
+  "id": 1,
+  "first_name": "Roger",
+  "last_name": "Hogwarts",
+  "email": "r.h@gmail.com",
+  "teams": [
+    {
+      "id": 1,
+      "name": "Mules",
+      "rink": "BAIREL",
+      "level": "D5",
+      "primary_color": "#b88907",
+      "secondary_color": "#000000",
+      "ternary_color": "#c42323",
+      "logo_Url": "",
+      "created": "2026-07-01T00:00:01Z",
+      "updated": "2026-07-01T00:00:01Z"
+    }
+  ],
+  "allergies": [
+    {
+      "id": 1,
+      "name": "Pecan",
+      "created": "2026-07-01T00:00:01Z",
+      "updated": "2026-07-01T00:00:01Z"
+    }
+  ],
+  "created": "2026-07-01T00:00:01Z",
+  "updated": "2026-07-01T00:00:01Z"
+}
