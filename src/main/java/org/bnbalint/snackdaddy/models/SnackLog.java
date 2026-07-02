@@ -4,7 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import jakarta.persistence.*;
-import org.springframework.data.annotation.CreatedDate;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.Instant;
 import java.time.LocalDate;
@@ -32,11 +33,11 @@ public class SnackLog {
     private LocalDate dateMade;
 
     @Column(insertable = false, updatable = false)
-    @CreatedDate
+    @CreationTimestamp
     private Instant created;
 
     @Column(insertable = false, updatable = false)
-    @CreatedDate
+    @UpdateTimestamp
     private Instant updated;
 
     //-------------------------------------------
