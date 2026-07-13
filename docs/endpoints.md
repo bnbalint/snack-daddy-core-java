@@ -431,7 +431,7 @@
 
 
 ## Add to snack_log
-- USAGE: Submit on [Log Snack Delivery](database.md#log-snack-delivery)
+- USAGE: Submit on [Log Snack Delivery](frontend.md#log-snack-delivery)
 - POST `/snack-log`
 - Body
    ```json
@@ -452,6 +452,32 @@
       "Updated_At": "2026-06-25T12:00:00Z"
     }
   ```
+
+
+## Rinks
+---
+
+## GET all rinks
+- USAGE: Display on [Team Entry](./frontend.md#team-entry)
+- GET `/rinks`
+- Response
+  ```json
+  ["BAIREL","UPMC"]
+  ```
+
+
+## Levels
+---
+
+## GET all rinks
+- USAGE: Display on [Team Entry](frontend.md#team-entry)
+- GET `/levels`
+- Response
+  ```json
+  ["D5","D4","D3"]
+  ```
+
+
 
 
 
