@@ -1,4 +1,4 @@
-package org.bnbalint.snackDaddy;
+package org.bnbalint.snackdaddy;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

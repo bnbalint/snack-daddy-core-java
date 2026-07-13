@@ -1,8 +1,6 @@
 package org.bnbalint.snackdaddy.controllers;
 
-import org.bnbalint.snackdaddy.models.Ingredient;
 import org.bnbalint.snackdaddy.models.Team;
-import org.bnbalint.snackdaddy.repositories.IngredientRepository;
 import org.bnbalint.snackdaddy.repositories.TeamRepository;
 import org.hibernate.exception.ConstraintViolationException;
 import org.slf4j.Logger;
