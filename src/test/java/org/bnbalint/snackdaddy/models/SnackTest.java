@@ -54,8 +54,8 @@ public class SnackTest {
         assertThat(json).extractingJsonPathBooleanValue("$.sweet").isEqualTo(true);
         assertThat(json).extractingJsonPathBooleanValue("$.savory").isEqualTo(false);
         assertThat(json).extractingJsonPathNumberValue("$.difficulty").isEqualTo(2);
-        assertThat(json).extractingJsonPathStringValue("$.created").isEqualTo(DATE.atOffset(ZoneOffset.UTC).toString());
-        assertThat(json).extractingJsonPathStringValue("$.updated").isEqualTo(DATE.atOffset(ZoneOffset.UTC).toString());
+        assertThat(json).extractingJsonPathStringValue("$.created_at").isEqualTo(DATE.atOffset(ZoneOffset.UTC).toString());
+        assertThat(json).extractingJsonPathStringValue("$.updated_at").isEqualTo(DATE.atOffset(ZoneOffset.UTC).toString());
         assertThat(json).extractingJsonPathArrayValue("$.ingredients").hasSize(4);
     }
 

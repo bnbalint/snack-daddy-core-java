@@ -64,8 +64,8 @@ public class UserTest {
         assertThat(json).extractingJsonPathStringValue("$.email").isEqualTo("r.h@gmail.com");
         assertThat(json).extractingJsonPathArrayValue("$.teams").hasSize(1);
         assertThat(json).extractingJsonPathArrayValue("$.allergies").hasSize(1);
-        assertThat(json).extractingJsonPathStringValue("$.created").isEqualTo(DATE.atOffset(ZoneOffset.UTC).toString());
-        assertThat(json).extractingJsonPathStringValue("$.updated").isEqualTo(DATE.atOffset(ZoneOffset.UTC).toString());
+        assertThat(json).extractingJsonPathStringValue("$.created_at").isEqualTo(DATE.atOffset(ZoneOffset.UTC).toString());
+        assertThat(json).extractingJsonPathStringValue("$.updated_at").isEqualTo(DATE.atOffset(ZoneOffset.UTC).toString());
     }
 
 

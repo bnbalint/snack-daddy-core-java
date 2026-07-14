@@ -40,8 +40,8 @@ public class IngredientTest {
         assertThat(json).isEqualToJson("ingredient.json");
         assertThat(json).hasJsonPathNumberValue("$.id");
         assertThat(json).extractingJsonPathStringValue("$.name").isEqualTo("Pecan");
-        assertThat(json).extractingJsonPathStringValue("$.created").isEqualTo(DATE.atOffset(ZoneOffset.UTC).toString());
-        assertThat(json).extractingJsonPathStringValue("$.updated").isEqualTo(DATE.atOffset(ZoneOffset.UTC).toString());
+        assertThat(json).extractingJsonPathStringValue("$.created_at").isEqualTo(DATE.atOffset(ZoneOffset.UTC).toString());
+        assertThat(json).extractingJsonPathStringValue("$.updated_at").isEqualTo(DATE.atOffset(ZoneOffset.UTC).toString());
     }
 
 

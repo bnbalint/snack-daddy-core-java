@@ -74,8 +74,8 @@ public class SnackLogTest {
         assertThat(json).extractingJsonPathBooleanValue("$.snack.sweet").isEqualTo(true);
         assertThat(json).extractingJsonPathBooleanValue("$.snack.savory").isEqualTo(false);
         assertThat(json).extractingJsonPathNumberValue("$.snack.difficulty").isEqualTo(2);
-        assertThat(json).extractingJsonPathStringValue("$.snack.created").isEqualTo(DATE.atOffset(ZoneOffset.UTC).toString());
-        assertThat(json).extractingJsonPathStringValue("$.snack.updated").isEqualTo(DATE.atOffset(ZoneOffset.UTC).toString());
+        assertThat(json).extractingJsonPathStringValue("$.snack.created_at").isEqualTo(DATE.atOffset(ZoneOffset.UTC).toString());
+        assertThat(json).extractingJsonPathStringValue("$.snack.updated_at").isEqualTo(DATE.atOffset(ZoneOffset.UTC).toString());
         assertThat(json).extractingJsonPathArrayValue("$.snack.ingredients").hasSize(4);
 
         assertThat(json).extractingJsonPathStringValue("$.team.name").isEqualTo("Mules");
@@ -87,8 +87,8 @@ public class SnackLogTest {
         assertThat(json).extractingJsonPathStringValue("$.team.logo_url").isEqualTo("logo.com");
 
         assertThat(json).extractingJsonPathStringValue("$.date_made").isEqualTo("2026-06-01");
-        assertThat(json).extractingJsonPathStringValue("$.created").isEqualTo(DATE.atOffset(ZoneOffset.UTC).toString());
-        assertThat(json).extractingJsonPathStringValue("$.updated").isEqualTo(DATE.atOffset(ZoneOffset.UTC).toString());
+        assertThat(json).extractingJsonPathStringValue("$.created_at").isEqualTo(DATE.atOffset(ZoneOffset.UTC).toString());
+        assertThat(json).extractingJsonPathStringValue("$.updated_at").isEqualTo(DATE.atOffset(ZoneOffset.UTC).toString());
     }
 
 

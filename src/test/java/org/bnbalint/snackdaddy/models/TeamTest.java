@@ -54,8 +54,8 @@ public class TeamTest {
         assertThat(json).extractingJsonPathStringValue("$.secondary_color").isEqualTo("#000000");
         assertThat(json).extractingJsonPathStringValue("$.ternary_color").isEqualTo("#c42323");
         assertThat(json).extractingJsonPathStringValue("$.logo_url").isEqualTo("logo.com");
-        assertThat(json).extractingJsonPathStringValue("$.created").isEqualTo(DATE.atOffset(ZoneOffset.UTC).toString());
-        assertThat(json).extractingJsonPathStringValue("$.updated").isEqualTo(DATE.atOffset(ZoneOffset.UTC).toString());
+        assertThat(json).extractingJsonPathStringValue("$.created_at").isEqualTo(DATE.atOffset(ZoneOffset.UTC).toString());
+        assertThat(json).extractingJsonPathStringValue("$.updated_at").isEqualTo(DATE.atOffset(ZoneOffset.UTC).toString());
     }
 
 
