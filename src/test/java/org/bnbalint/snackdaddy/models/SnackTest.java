@@ -37,8 +37,8 @@ public class SnackTest {
                 ingredients
         );
         snack.setId(1);
-        snack.setCreated(DATE);
-        snack.setUpdated(DATE);
+        snack.setCreatedAt(DATE);
+        snack.setUpdatedAt(DATE);
         System.out.println("Snack = " + snack);
 
         //--------------------------------------------------
@@ -76,8 +76,8 @@ public class SnackTest {
         assertThat(snack.getSavory()).isEqualTo(false);
         assertThat(snack.getDifficulty()).isEqualTo(2);
         assertThat(snack.getIngredients()).hasSize(4);
-        assertThat(snack.getCreated()).isEqualTo(DATE.atOffset(ZoneOffset.UTC).toString());
-        assertThat(snack.getUpdated()).isEqualTo(DATE.atOffset(ZoneOffset.UTC).toString());
+        assertThat(snack.getCreatedAt()).isEqualTo(DATE.atOffset(ZoneOffset.UTC).toString());
+        assertThat(snack.getUpdatedAt()).isEqualTo(DATE.atOffset(ZoneOffset.UTC).toString());
     }
 
 
@@ -90,8 +90,8 @@ public class SnackTest {
     Ingredient makeIngredient(String name, int id) {
         Ingredient ingredient = new Ingredient(name);
         ingredient.setId(id);
-        ingredient.setCreated(DATE);
-        ingredient.setUpdated(DATE);
+        ingredient.setCreatedAt(DATE);
+        ingredient.setUpdatedAt(DATE);
         return ingredient;
     }
 }

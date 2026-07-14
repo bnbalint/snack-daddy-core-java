@@ -34,8 +34,8 @@ public class TeamTest {
                 "logo.com"
         );
         team.setId(1);
-        team.setCreated(DATE);
-        team.setUpdated(DATE);
+        team.setCreatedAt(DATE);
+        team.setUpdatedAt(DATE);
         System.out.println("Team = " + team);
 
         //--------------------------------------------------
@@ -77,7 +77,7 @@ public class TeamTest {
         assertThat(team.getSecondaryColor()).isEqualTo("#000000");
         assertThat(team.getTernaryColor()).isEqualTo("#c42323");
         assertThat(team.getLogoUrl()).isEqualTo("logo.com");
-        assertThat(team.getCreated()).isEqualTo(DATE.atOffset(ZoneOffset.UTC).toString());
-        assertThat(team.getUpdated()).isEqualTo(DATE.atOffset(ZoneOffset.UTC).toString());
+        assertThat(team.getCreatedAt()).isEqualTo(DATE.atOffset(ZoneOffset.UTC).toString());
+        assertThat(team.getUpdatedAt()).isEqualTo(DATE.atOffset(ZoneOffset.UTC).toString());
     }
 }

@@ -12,29 +12,29 @@
         "id": 4,
         "name": "Rice Crispy Cereal",
         "created": "2026-07-01T00:00:01Z",
-        "updated": "2026-07-01T00:00:01Z"
+        "updated_at_at": "2026-07-01T00:00:01Z"
       },
       {
         "id": 5,
         "name": "Margarine",
         "created": "2026-07-01T00:00:01Z",
-        "updated": "2026-07-01T00:00:01Z"
+        "updated_at_at": "2026-07-01T00:00:01Z"
       },
       {
         "id": 6,
         "name": "Marshmallow",
         "created": "2026-07-01T00:00:01Z",
-        "updated": "2026-07-01T00:00:01Z"
+        "updated_at_at": "2026-07-01T00:00:01Z"
       },
       {
         "id": 7,
         "name": "Vanilla",
         "created": "2026-07-01T00:00:01Z",
-        "updated": "2026-07-01T00:00:01Z"
+        "updated_at_at": "2026-07-01T00:00:01Z"
       }
     ],
     "created": "2026-07-01T00:00:01Z",
-    "updated": "2026-07-01T00:00:01Z"
+    "updated_at_at": "2026-07-01T00:00:01Z"
   },
   "team": {
     "id": 1,
@@ -46,9 +46,9 @@
     "ternary_color": "#c42323",
     "logo_url": "logo.com",
     "created": "2026-07-01T00:00:01Z",
-    "updated": "2026-07-01T00:00:01Z"
+    "updated_at_at": "2026-07-01T00:00:01Z"
   },
   "date_made": "2026-06-01",
   "created": "2026-07-01T00:00:01Z",
-  "updated": "2026-07-01T00:00:01Z"
+  "updated_at_at": "2026-07-01T00:00:01Z"
 }

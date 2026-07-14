@@ -42,11 +42,11 @@ public class Snack {
 
     @Column(insertable = false, updatable = false)
     @CreationTimestamp
-    private Instant created;
+    private Instant createdAt;
 
     @Column(insertable = false, updatable = false)
     @UpdateTimestamp
-    private Instant updated;
+    private Instant updatedAt;
 
 
     //-------------------------------------------
@@ -150,20 +150,20 @@ public class Snack {
         this.ingredients = ingredients;
     }
 
-    public Instant getCreated() {
-        return created;
+    public Instant getCreatedAt() {
+        return createdAt;
     }
 
-    public void setCreated (Instant created) {
-        this.created = created;
+    public void setCreatedAt(Instant createdAt) {
+        this.createdAt = createdAt;
     }
 
-    public Instant getUpdated() {
-        return updated;
+    public Instant getUpdatedAt() {
+        return updatedAt;
     }
 
-    public void setUpdated(Instant updated) {
-        this.updated = updated;
+    public void setUpdatedAt(Instant updatedAt) {
+        this.updatedAt = updatedAt;
     }
 
 
@@ -173,6 +173,6 @@ public class Snack {
 
     @Override
     public String toString() {
-        return String.format("Snack(id=%d, name=%s, sweet=%s, savory=%s, difficulty=%d, recipeUrl=%s, ingredients=[ %s ], created=%s, updated=%s", id, name, sweet, savory, difficulty, recipeUrl, ingredients, created, updated);
+        return String.format("Snack(id=%d, name=%s, sweet=%s, savory=%s, difficulty=%d, recipeUrl=%s, ingredients=[ %s ], created=%s, updated=%s", id, name, sweet, savory, difficulty, recipeUrl, ingredients, createdAt, updatedAt);
     }
 }

@@ -39,8 +39,8 @@ public class SnackLogTest {
                 ingredients
         );
         snack.setId(1);
-        snack.setCreated(DATE);
-        snack.setUpdated(DATE);
+        snack.setCreatedAt(DATE);
+        snack.setUpdatedAt(DATE);
 
         Team team = new Team(
                 "Mules",
@@ -52,13 +52,13 @@ public class SnackLogTest {
                 "logo.com"
         );
         team.setId(1);
-        team.setCreated(DATE);
-        team.setUpdated(DATE);
+        team.setCreatedAt(DATE);
+        team.setUpdatedAt(DATE);
 
         SnackLog snackLogEntry = new SnackLog(snack, team, LocalDate.of(2026, Month.JUNE, 1));
         snackLogEntry.setId(1);
-        snackLogEntry.setCreated(DATE);
-        snackLogEntry.setUpdated(DATE);
+        snackLogEntry.setCreatedAt(DATE);
+        snackLogEntry.setUpdatedAt(DATE);
         System.out.println("SnackLogEntry = " + snackLogEntry);
 
         //--------------------------------------------------
@@ -110,8 +110,8 @@ public class SnackLogTest {
         assertThat(snack.getSavory()).isEqualTo(false);
         assertThat(snack.getDifficulty()).isEqualTo(2);
         assertThat(snack.getIngredients()).hasSize(4);
-        assertThat(snack.getCreated()).isEqualTo(DATE.atOffset(ZoneOffset.UTC).toString());
-        assertThat(snack.getUpdated()).isEqualTo(DATE.atOffset(ZoneOffset.UTC).toString());
+        assertThat(snack.getCreatedAt()).isEqualTo(DATE.atOffset(ZoneOffset.UTC).toString());
+        assertThat(snack.getUpdatedAt()).isEqualTo(DATE.atOffset(ZoneOffset.UTC).toString());
 
         var team = snackLogEntry.getTeam();
         assertThat(team.getId()).isEqualTo(1);
@@ -122,12 +122,12 @@ public class SnackLogTest {
         assertThat(team.getSecondaryColor()).isEqualTo("#000000");
         assertThat(team.getTernaryColor()).isEqualTo("#c42323");
         assertThat(team.getLogoUrl()).isEqualTo("logo.com");
-        assertThat(team.getCreated()).isEqualTo(DATE.atOffset(ZoneOffset.UTC).toString());
-        assertThat(team.getUpdated()).isEqualTo(DATE.atOffset(ZoneOffset.UTC).toString());
+        assertThat(team.getCreatedAt()).isEqualTo(DATE.atOffset(ZoneOffset.UTC).toString());
+        assertThat(team.getUpdatedAt()).isEqualTo(DATE.atOffset(ZoneOffset.UTC).toString());
 
         assertThat(snackLogEntry.getDateMade()).isEqualTo("2026-06-01");
-        assertThat(snackLogEntry.getCreated()).isEqualTo(DATE.atOffset(ZoneOffset.UTC).toString());
-        assertThat(snackLogEntry.getUpdated()).isEqualTo(DATE.atOffset(ZoneOffset.UTC).toString());
+        assertThat(snackLogEntry.getCreatedAt()).isEqualTo(DATE.atOffset(ZoneOffset.UTC).toString());
+        assertThat(snackLogEntry.getUpdatedAt()).isEqualTo(DATE.atOffset(ZoneOffset.UTC).toString());
     }
 
 
@@ -140,8 +140,8 @@ public class SnackLogTest {
     Ingredient makeIngredient(String name, int id) {
         Ingredient ingredient = new Ingredient(name);
         ingredient.setId(id);
-        ingredient.setCreated(DATE);
-        ingredient.setUpdated(DATE);
+        ingredient.setCreatedAt(DATE);
+        ingredient.setUpdatedAt(DATE);
         return ingredient;
     }
 }

@@ -34,20 +34,20 @@ public class UserTest {
                 ""
         );
         team.setId(1);
-        team.setCreated(DATE);
-        team.setUpdated(DATE);
+        team.setCreatedAt(DATE);
+        team.setUpdatedAt(DATE);
         Team[] teams = { team };
 
         Ingredient ingredient = new Ingredient("Pecan");
         ingredient.setId(1);
-        ingredient.setCreated(DATE);
-        ingredient.setUpdated(DATE);
+        ingredient.setCreatedAt(DATE);
+        ingredient.setUpdatedAt(DATE);
         Ingredient[] allergies = { ingredient };
 
         User user = new User("Roger", "Hogwarts", "r.h@gmail.com", teams, allergies);
         user.setId(1);
-        user.setCreated(DATE);
-        user.setUpdated(DATE);
+        user.setCreatedAt(DATE);
+        user.setUpdatedAt(DATE);
         System.out.println("User = " + user);
 
         //--------------------------------------------------
@@ -94,17 +94,17 @@ public class UserTest {
         assertThat(team.getSecondaryColor()).isEqualTo("#000000");
         assertThat(team.getTernaryColor()).isEqualTo("#c42323");
         assertThat(team.getLogoUrl()).isEqualTo("");
-        assertThat(team.getCreated()).isEqualTo(DATE.atOffset(ZoneOffset.UTC).toString());
-        assertThat(team.getUpdated()).isEqualTo(DATE.atOffset(ZoneOffset.UTC).toString());
+        assertThat(team.getCreatedAt()).isEqualTo(DATE.atOffset(ZoneOffset.UTC).toString());
+        assertThat(team.getUpdatedAt()).isEqualTo(DATE.atOffset(ZoneOffset.UTC).toString());
 
         assertThat(user.getAllergies()).hasSize(1);
         var allergy = user.getAllergies()[0];
         assertThat(allergy.getId()).isEqualTo(1);
         assertThat(allergy.getName()).isEqualTo("Pecan");
-        assertThat(allergy.getCreated()).isEqualTo(DATE.atOffset(ZoneOffset.UTC).toString());
-        assertThat(allergy.getUpdated()).isEqualTo(DATE.atOffset(ZoneOffset.UTC).toString());
+        assertThat(allergy.getCreatedAt()).isEqualTo(DATE.atOffset(ZoneOffset.UTC).toString());
+        assertThat(allergy.getUpdatedAt()).isEqualTo(DATE.atOffset(ZoneOffset.UTC).toString());
 
-        assertThat(user.getCreated()).isEqualTo(DATE.atOffset(ZoneOffset.UTC).toString());
-        assertThat(user.getUpdated()).isEqualTo(DATE.atOffset(ZoneOffset.UTC).toString());
+        assertThat(user.getCreatedAt()).isEqualTo(DATE.atOffset(ZoneOffset.UTC).toString());
+        assertThat(user.getUpdatedAt()).isEqualTo(DATE.atOffset(ZoneOffset.UTC).toString());
     }
 }

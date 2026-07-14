@@ -26,8 +26,8 @@ public class IngredientTest {
         // SET VALUES
         Ingredient ingredient = new Ingredient("Pecan");
         ingredient.setId(1);
-        ingredient.setCreated(DATE);
-        ingredient.setUpdated(DATE);
+        ingredient.setCreatedAt(DATE);
+        ingredient.setUpdatedAt(DATE);
         System.out.println("Ingredient = " + ingredient);
 
         //--------------------------------------------------
@@ -57,7 +57,7 @@ public class IngredientTest {
         // VERIFY RESULTS
         assertThat(ingredient.getId()).isEqualTo(1);
         assertThat(ingredient.getName()).isEqualTo("Pecan");
-        assertThat(ingredient.getCreated()).isEqualTo(DATE.atOffset(ZoneOffset.UTC).toString());
-        assertThat(ingredient.getUpdated()).isEqualTo(DATE.atOffset(ZoneOffset.UTC).toString());
+        assertThat(ingredient.getCreatedAt()).isEqualTo(DATE.atOffset(ZoneOffset.UTC).toString());
+        assertThat(ingredient.getUpdatedAt()).isEqualTo(DATE.atOffset(ZoneOffset.UTC).toString());
     }
 }

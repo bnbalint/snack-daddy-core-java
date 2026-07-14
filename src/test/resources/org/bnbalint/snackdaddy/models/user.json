@@ -13,18 +13,18 @@
       "secondary_color": "#000000",
       "ternary_color": "#c42323",
       "logo_url": "",
-      "created": "2026-07-01T00:00:01Z",
-      "updated": "2026-07-01T00:00:01Z"
+      "created_at": "2026-07-01T00:00:01Z",
+      "updated_at": "2026-07-01T00:00:01Z"
     }
   ],
   "allergies": [
     {
       "id": 1,
       "name": "Pecan",
-      "created": "2026-07-01T00:00:01Z",
-      "updated": "2026-07-01T00:00:01Z"
+      "created_at": "2026-07-01T00:00:01Z",
+      "updated_at": "2026-07-01T00:00:01Z"
     }
   ],
-  "created": "2026-07-01T00:00:01Z",
-  "updated": "2026-07-01T00:00:01Z"
+  "created_at": "2026-07-01T00:00:01Z",
+  "updated_at": "2026-07-01T00:00:01Z"
 }

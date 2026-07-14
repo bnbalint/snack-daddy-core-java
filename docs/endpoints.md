@@ -11,16 +11,16 @@
   ```json
    [
      {
-       "ID": 1,
-       "Name": "Mules",
+       "id": 1,
+       "name": "Mules",
        "Rink": "BAIREL",
        "Level": "D5",
        "PrimaryColor": "#b88907",
        "SecondaryColor": "#000000",
        "TernaryColor": "#c42323",
        "LogoUrl": "",
-       "Created_At": "2026-06-25T12:00:00Z",
-       "Updated_At": "2026-06-25T12:00:00Z"
+       "created_at": "2026-07-01T00:00:01Z",
+       "updated_at": "2026-07-01T00:00:01Z"
      }
    ]
   ```
@@ -32,7 +32,7 @@
 - Body
    ```json
      {
-       "Name": "Mules",
+       "name": "Mules",
        "Rink": "BAIREL",
        "Level": "D5",
        "PrimaryColor": "#b88907",
@@ -44,16 +44,16 @@
 - Response
   ```json
     {
-      "ID": 1,
-      "Name": "Mules",
+      "id": 1,
+      "name": "Mules",
       "Rink": "BAIREL",
       "Level": "D5",
       "PrimaryColor": "#b88907",
       "SecondaryColor": "#000000",
       "TernaryColor": "#c42323",
       "LogoUrl": "",
-      "Created_At": "2026-06-25T12:00:00Z",
-      "Updated_At": "2026-06-25T12:00:00Z"
+      "created_at": "2026-07-01T00:00:01Z",
+      "updated_at": "2026-07-01T00:00:01Z"
       }
   ```
 
@@ -68,16 +68,16 @@
    ```json
      [
        {
-         "ID": 1,
-         "Name": "Pecan",
-         "Created_At": "2026-06-25T12:00:00Z",
-         "Updated_At": "2026-06-25T12:00:00Z"
+         "id": 1,
+         "name": "Pecan",
+         "created_at": "2026-07-01T00:00:01Z",
+         "updated_at": "2026-07-01T00:00:01Z"
        },
        {
-         "ID": 2,
-         "Name": "Almond Milk",
-         "Created_At": "2026-06-25T12:00:00Z",
-         "Updated_At": "2026-06-25T12:00:00Z"
+         "id": 2,
+         "name": "Almond Milk",
+         "created_at": "2026-07-01T00:00:01Z",
+         "updated_at": "2026-07-01T00:00:01Z"
        }
      ]
    ```
@@ -88,16 +88,16 @@
 - Body
    ```json
      {
-       "Name": "Pecan"
+       "name": "Pecan"
      }
    ```
 - Response
   ```json
     {
-      "ID": 1,
-      "Name": "Pecan",
-      "Created_At": "2026-06-25T12:00:00Z",
-      "Updated_At": "2026-06-25T12:00:00Z"
+      "id": 1,
+      "name": "Pecan",
+      "created_at": "2026-07-01T00:00:01Z",
+      "updated_at": "2026-07-01T00:00:01Z"
     }
   ```
 
@@ -111,44 +111,44 @@
   ```json
     [
       {
-        "ID": 1,
-        "First_Name": "Roger",
-        "Last_Name": "Hogwarts",
+        "id": 1,
+        "First_name": "Roger",
+        "Last_name": "Hogwarts",
         "Email": "r.h@gmail.com",
         "Teams": [
           {
-            "ID": 1,
-            "Name": "Mules",
+            "id": 1,
+            "name": "Mules",
             "Rink": "BAIREL",
             "Level": "D5",
             "PrimaryColor": "#b88907",
             "SecondaryColor": "#000000",
             "TernaryColor": "#c42323",
             "LogoUrl": "",
-            "Created_At": "2026-06-25T12:00:00Z",
-            "Updated_At": "2026-06-25T12:00:00Z"
+            "created_at": "2026-07-01T00:00:01Z",
+            "updated_at": "2026-07-01T00:00:01Z"
             }
         ],
         "Allergies": [
           {
-            "ID": 1,
-            "Name": "Pecan",
-            "Created_At": "2026-06-25T12:00:00Z",
-            "Updated_At": "2026-06-25T12:00:00Z"
+            "id": 1,
+            "name": "Pecan",
+            "created_at": "2026-07-01T00:00:01Z",
+            "updated_at": "2026-07-01T00:00:01Z"
           }
         ],
-        "Created_At": "2026-06-25T12:00:00Z",
-        "Updated_At": "2026-06-25T12:00:00Z"
+        "created_at": "2026-07-01T00:00:01Z",
+        "updated_at": "2026-07-01T00:00:01Z"
       },
       {
-        "ID": 2,
-        "First_Name": "Brandi",
-        "Last_Name": "Hogwarts",
+        "id": 2,
+        "First_name": "Brandi",
+        "Last_name": "Hogwarts",
         "Email": "r.h@gmail.com",
         "Teams": [],
         "Allergies": [],
-        "Created_At": "2026-06-25T12:00:00Z",
-        "Updated_At": "2026-06-25T12:00:00Z"
+        "created_at": "2026-07-01T00:00:01Z",
+        "updated_at": "2026-07-01T00:00:01Z"
       }
     ]
   ```
@@ -160,29 +160,29 @@
 - Body
    ```json
      {
-       "First_Name": "Roger",
-       "Last_Name": "Hogwarts",
+       "First_name": "Roger",
+       "Last_name": "Hogwarts",
        "Email": "r.h@gmail.com",
        "Teams": [
          {
-           "ID": 1,
-           "Name": "Mules",
+           "id": 1,
+           "name": "Mules",
            "Rink": "BAIREL",
            "Level": "D5",
            "PrimaryColor": "#b88907",
            "SecondaryColor": "#000000",
            "TernaryColor": "#c42323",
            "LogoUrl": "",
-           "Created_At": "2026-06-25T12:00:00Z",
-           "Updated_At": "2026-06-25T12:00:00Z"
+           "created_at": "2026-07-01T00:00:01Z",
+           "updated_at": "2026-07-01T00:00:01Z"
            }
        ],
        "Allergies": [
          {
-           "ID": 1,
-           "Name": "Pecan",
-           "Created_At": "2026-06-25T12:00:00Z",
-           "Updated_At": "2026-06-25T12:00:00Z"
+           "id": 1,
+           "name": "Pecan",
+           "created_at": "2026-07-01T00:00:01Z",
+           "updated_at": "2026-07-01T00:00:01Z"
          }
        ]
      }
@@ -190,34 +190,34 @@
 - Response
   ```json
     {
-      "ID": 1,
-      "First_Name": "Roger",
-      "Last_Name": "Hogwarts",
+      "id": 1,
+      "First_name": "Roger",
+      "Last_name": "Hogwarts",
       "Email": "r.h@gmail.com",
       "Teams": [
         {
-          "ID": 1,
-          "Name": "Mules",
+          "id": 1,
+          "name": "Mules",
           "Rink": "BAIREL",
           "Level": "D5",
           "PrimaryColor": "#b88907",
           "SecondaryColor": "#000000",
           "TernaryColor": "#c42323",
           "LogoUrl": "",
-          "Created_At": "2026-06-25T12:00:00Z",
-          "Updated_At": "2026-06-25T12:00:00Z"
+          "created_at": "2026-07-01T00:00:01Z",
+          "updated_at": "2026-07-01T00:00:01Z"
           }
       ],
       "Allergies": [
         {
-          "ID": 1,
-          "Name": "Pecan",
-          "Created_At": "2026-06-25T12:00:00Z",
-          "Updated_At": "2026-06-25T12:00:00Z"
+          "id": 1,
+          "name": "Pecan",
+          "created_at": "2026-07-01T00:00:01Z",
+          "updated_at": "2026-07-01T00:00:01Z"
         }
       ],
-      "Created_At": "2026-06-25T12:00:00Z",
-      "Updated_At": "2026-06-25T12:00:00Z"
+      "created_at": "2026-07-01T00:00:01Z",
+      "updated_at": "2026-07-01T00:00:01Z"
     }
   ```
 
@@ -236,34 +236,34 @@
   ```json
     [
       {
-        "ID": 1,
-        "Name": "Rice Crispie Treat",
+        "id": 1,
+        "name": "Rice Crispie Treat",
         "Sweet": true,
         "Savory": false,
         "Difficulty": 2,
         "Recipe_Url": "",
         "Ingredients": [
           {
-            "ID": 4,
-            "Name": "Rice Crispy Cereal",
-            "Created_At": "2026-06-25T12:00:00Z",
-            "Updated_At": "2026-06-25T12:00:00Z"
+            "id": 4,
+            "name": "Rice Crispy Cereal",
+            "created_at": "2026-07-01T00:00:01Z",
+            "updated_at": "2026-07-01T00:00:01Z"
           },
           {
-            "ID": 5,
-            "Name": "Margarine",
-            "Created_At": "2026-06-25T12:00:00Z",
-            "Updated_At": "2026-06-25T12:00:00Z"
+            "id": 5,
+            "name": "Margarine",
+            "created_at": "2026-07-01T00:00:01Z",
+            "updated_at": "2026-07-01T00:00:01Z"
           },
           {
-            "ID": 6,
-            "Name": "Marshmallow",
-            "Created_At": "2026-06-25T12:00:00Z",
-            "Updated_At": "2026-06-25T12:00:00Z"
+            "id": 6,
+            "name": "Marshmallow",
+            "created_at": "2026-07-01T00:00:01Z",
+            "updated_at": "2026-07-01T00:00:01Z"
           }
         ],
-        "Created_At": "2026-06-25T12:00:00Z",
-        "Updated_At": "2026-06-25T12:00:00Z"
+        "created_at": "2026-07-01T00:00:01Z",
+        "updated_at": "2026-07-01T00:00:01Z"
       }
     ]
   ```
@@ -275,29 +275,29 @@
 - Body
    ```json
      {
-       "Name": "Rice Crispie Treat",
+       "name": "Rice Crispie Treat",
        "Sweet": true,
        "Savory": false,
        "Difficulty": 2,
        "Recipe_Url": "",
        "Ingredients": [
          {
-           "ID": 4,
-           "Name": "Rice Crispy Cereal",
-           "Created_At": "2026-06-25T12:00:00Z",
-           "Updated_At": "2026-06-25T12:00:00Z"
+           "id": 4,
+           "name": "Rice Crispy Cereal",
+           "created_at": "2026-07-01T00:00:01Z",
+           "updated_at": "2026-07-01T00:00:01Z"
          },
          {
-           "ID": 5,
-           "Name": "Margarine",
-           "Created_At": "2026-06-25T12:00:00Z",
-           "Updated_At": "2026-06-25T12:00:00Z"
+           "id": 5,
+           "name": "Margarine",
+           "created_at": "2026-07-01T00:00:01Z",
+           "updated_at": "2026-07-01T00:00:01Z"
          },
          {
-           "ID": 6,
-           "Name": "Marshmallow",
-           "Created_At": "2026-06-25T12:00:00Z",
-           "Updated_At": "2026-06-25T12:00:00Z"
+           "id": 6,
+           "name": "Marshmallow",
+           "created_at": "2026-07-01T00:00:01Z",
+           "updated_at": "2026-07-01T00:00:01Z"
          }
        ]
      }
@@ -305,34 +305,34 @@
 - Response
   ```json
     {
-      "ID": 1,
-      "Name": "Rice Crispie Treat",
+      "id": 1,
+      "name": "Rice Crispie Treat",
       "Sweet": true,
       "Savory": false,
       "Difficulty": 2,
       "Recipe_Url": "",
       "Ingredients": [
         {
-          "ID": 4,
-          "Name": "Rice Crispy Cereal",
-          "Created_At": "2026-06-25T12:00:00Z",
-          "Updated_At": "2026-06-25T12:00:00Z"
+          "id": 4,
+          "name": "Rice Crispy Cereal",
+          "created_at": "2026-07-01T00:00:01Z",
+          "updated_at": "2026-07-01T00:00:01Z"
         },
         {
-          "ID": 5,
-          "Name": "Margarine",
-          "Created_At": "2026-06-25T12:00:00Z",
-          "Updated_At": "2026-06-25T12:00:00Z"
+          "id": 5,
+          "name": "Margarine",
+          "created_at": "2026-07-01T00:00:01Z",
+          "updated_at": "2026-07-01T00:00:01Z"
         },
         {
-          "ID": 6,
-          "Name": "Marshmallow",
-          "Created_At": "2026-06-25T12:00:00Z",
-          "Updated_At": "2026-06-25T12:00:00Z"
+          "id": 6,
+          "name": "Marshmallow",
+          "created_at": "2026-07-01T00:00:01Z",
+          "updated_at": "2026-07-01T00:00:01Z"
         }
       ],
-      "Created_At": "2026-06-25T12:00:00Z",
-      "Updated_At": "2026-06-25T12:00:00Z"
+      "created_at": "2026-07-01T00:00:01Z",
+      "updated_at": "2026-07-01T00:00:01Z"
       }
   ```
 
@@ -343,34 +343,34 @@
    ```json
      [
        {
-         "ID": 1,
-         "Name": "Rice Crispie Treat",
+         "id": 1,
+         "name": "Rice Crispie Treat",
          "Sweet": true,
          "Savory": false,
          "Difficulty": 5,
          "Recipe_Url": "",
          "Ingredients": [
            {
-             "ID": 4,
-             "Name": "Rice Crispy Cereal",
-             "Created_At": "2026-06-25T12:00:00Z",
-             "Updated_At": "2026-06-25T12:00:00Z"
+             "id": 4,
+             "name": "Rice Crispy Cereal",
+             "created_at": "2026-07-01T00:00:01Z",
+             "updated_at": "2026-07-01T00:00:01Z"
            },
            {
-             "ID": 5,
-             "Name": "Margarine",
-             "Created_At": "2026-06-25T12:00:00Z",
-             "Updated_At": "2026-06-25T12:00:00Z"
+             "id": 5,
+             "name": "Margarine",
+             "created_at": "2026-07-01T00:00:01Z",
+             "updated_at": "2026-07-01T00:00:01Z"
            },
            {
-             "ID": 6,
-             "Name": "Marshmallow",
-             "Created_At": "2026-06-25T12:00:00Z",
-             "Updated_At": "2026-06-25T12:00:00Z"
+             "id": 6,
+             "name": "Marshmallow",
+             "created_at": "2026-07-01T00:00:01Z",
+             "updated_at": "2026-07-01T00:00:01Z"
            }
          ],
-         "Created_At": "2026-06-25T12:00:00Z",
-         "Updated_At": "2026-06-25T12:00:00Z"
+         "created_at": "2026-07-01T00:00:01Z",
+         "updated_at": "2026-07-01T00:00:01Z"
        }
      ]
    ```
@@ -378,34 +378,34 @@
   ```json
     [
       {
-        "ID": 1,
-        "Name": "Rice Crispie Treat",
-        "Sweet": true,
-        "Savory": false,
-        "Difficulty": 5,
-        "Recipe_Url": "",
-        "Ingredients": [
+        "id": 1,
+        "name": "Rice Crispie Treat",
+        "sweet": true,
+        "savory": false,
+        "difficulty": 2,
+        "recipe_url": "",
+        "ingredients": [
           {
-            "ID": 4,
-            "Name": "Rice Crispy Cereal",
-            "Created_At": "2026-06-25T12:00:00Z",
-            "Updated_At": "2026-06-25T12:00:00Z"
+            "id": 4,
+            "name": "Rice Crispy Cereal",
+            "created_at": "2026-07-01T00:00:01Z",
+            "updated_at": "2026-07-01T00:00:01Z"
           },
           {
-            "ID": 5,
-            "Name": "Margarine",
-            "Created_At": "2026-06-25T12:00:00Z",
-            "Updated_At": "2026-06-25T12:00:00Z"
+            "id": 5,
+            "name": "Margarine",
+            "created_at": "2026-07-01T00:00:01Z",
+            "updated_at": "2026-07-01T00:00:01Z"
           },
           {
-            "ID": 6,
-            "Name": "Marshmallow",
-            "Created_At": "2026-06-25T12:00:00Z",
-            "Updated_At": "2026-06-25T12:00:00Z"
+            "id": 6,
+            "name": "Marshmallow",
+            "created_at": "2026-07-01T00:00:01Z",
+            "updated_at": "2026-07-01T00:00:01Z"
           }
         ],
-        "Created_At": "2026-06-25T12:00:00Z",
-        "Updated_At": "2026-06-25T12:00:00Z"
+        "created_at": "2026-07-01T00:00:01Z",
+        "updated_at": "2026-07-01T00:00:01Z"
       }
     ]
   ```
@@ -422,11 +422,120 @@
 - GET `/snack-log`
 - Response
   ```json
-    [
-      {
-
-      }
-    ]
+   [
+    {
+      "id": 1,
+      "snack_id": 1,
+      "snack": {
+        "id": 1,
+        "name": "Rice Crispie Treat",
+        "sweet": true,
+        "savory": false,
+        "difficulty": 2,
+        "recipe_url": "",
+        "ingredients": [
+          {
+            "id": 4,
+            "name": "Rice Crispy Cereal",
+            "created_at": "2026-07-01T00:00:01Z",
+            "updated_at": "2026-07-01T00:00:01Z"
+          },
+          {
+            "id": 5,
+            "name": "Margarine",
+            "created_at": "2026-07-01T00:00:01Z",
+            "updated_at": "2026-07-01T00:00:01Z"
+          },
+          {
+            "id": 6,
+            "name": "Marshmallow",
+            "created_at": "2026-07-01T00:00:01Z",
+            "updated_at": "2026-07-01T00:00:01Z"
+          },
+          {
+            "id": 7,
+            "name": "Vanilla",
+            "created_at": "2026-07-01T00:00:01Z",
+            "updated_at": "2026-07-01T00:00:01Z"
+          }
+        ],
+        "created_at": "2026-07-01T00:00:01Z",
+        "updated_at": "2026-07-01T00:00:01Z"
+      },
+      "team_id": 1,
+      "team": {
+        "id": 1,
+        "name": "Mules",
+        "rink": "BAIREL",
+        "level": "D5",
+        "primary_color": "#b88907",
+        "secondary_color": "#000000",
+        "ternary_color": "#c42323",
+        "logo_url": "logo.com",
+        "created_at": "2026-07-01T00:00:01Z",
+        "updated_at": "2026-07-01T00:00:01Z"
+      },
+      "date_made": "2026-07-20",
+      "created_at": "2026-07-01T00:00:01Z",
+      "updated_at": "2026-07-01T00:00:01Z"
+    },
+    {
+      "id": 2,
+      "snack_id": 1,
+      "snack": {
+        "id": 1,
+        "name": "Rice Crispie Treat",
+        "sweet": true,
+        "savory": false,
+        "difficulty": 2,
+        "recipe_url": "",
+        "ingredients": [
+          {
+            "id": 4,
+            "name": "Rice Crispy Cereal",
+            "created_at": "2026-07-01T00:00:01Z",
+            "updated_at": "2026-07-01T00:00:01Z"
+          },
+          {
+            "id": 5,
+            "name": "Margarine",
+            "created_at": "2026-07-01T00:00:01Z",
+            "updated_at": "2026-07-01T00:00:01Z"
+          },
+          {
+            "id": 6,
+            "name": "Marshmallow",
+            "created_at": "2026-07-01T00:00:01Z",
+            "updated_at": "2026-07-01T00:00:01Z"
+          },
+          {
+            "id": 7,
+            "name": "Vanilla",
+            "created_at": "2026-07-01T00:00:01Z",
+            "updated_at": "2026-07-01T00:00:01Z"
+          }
+        ],
+        "created_at": "2026-07-01T00:00:01Z",
+        "updated_at": "2026-07-01T00:00:01Z"
+      },
+      "team_id": 1,
+      "team": {
+        "id": 2,
+        "name": "Monsters",
+        "rink": "BAIREL",
+        "level": "D4",
+        "primary_color": "#2c54c0",
+        "secondary_color": "#000000",
+        "ternary_color": "#e967b7",
+        "logo_url": "logo.com",
+        "created_at": "2026-07-01T00:00:01Z",
+        "updated_at": "2026-07-01T00:00:01Z"
+      },
+      "date_made": "2026-07-20",
+      "created_at": "2026-07-01T00:00:01Z",
+      "updated_at": "2026-07-01T00:00:01Z"
+    }
+   ]
   ```
 
 
@@ -436,20 +545,68 @@
 - Body
    ```json
      {
-       "Snack_ID": 1,
-       "Team_ID": 1,
-       "Date_Made": "2026-06-25T12:00:00Z"
+       "snack_id": 1,
+       "team_id": 1,
+       "date_made": "2026-06-25"
      }
    ```
 - Response
   ```json
     {
-      "ID": 1,
-      "Snack_ID": 1,
-      "Team_ID": 1,
-      "Date_Made": "2026-06-20T12:00:00Z",
-      "Created_At": "2026-06-25T12:00:00Z",
-      "Updated_At": "2026-06-25T12:00:00Z"
+      "id": 1,
+      "snack_id": 1,
+      "snack": {
+        "id": 1,
+        "name": "Rice Crispie Treat",
+        "sweet": true,
+        "savory": false,
+        "difficulty": 2,
+        "recipe_url": "",
+        "ingredients": [
+          {
+            "id": 4,
+            "name": "Rice Crispy Cereal",
+            "created_at": "2026-07-01T00:00:01Z",
+            "updated_at": "2026-07-01T00:00:01Z"
+          },
+          {
+            "id": 5,
+            "name": "Margarine",
+            "created_at": "2026-07-01T00:00:01Z",
+            "updated_at": "2026-07-01T00:00:01Z"
+          },
+          {
+            "id": 6,
+            "name": "Marshmallow",
+            "created_at": "2026-07-01T00:00:01Z",
+            "updated_at": "2026-07-01T00:00:01Z"
+          },
+          {
+            "id": 7,
+            "name": "Vanilla",
+            "created_at": "2026-07-01T00:00:01Z",
+            "updated_at": "2026-07-01T00:00:01Z"
+          }
+        ],
+        "created_at": "2026-07-01T00:00:01Z",
+        "updated_at": "2026-07-01T00:00:01Z"
+      },
+      "team_id": 1,
+      "team": {
+        "id": 1,
+        "name": "Mules",
+        "rink": "BAIREL",
+        "level": "D5",
+        "primary_color": "#b88907",
+        "secondary_color": "#000000",
+        "ternary_color": "#c42323",
+        "logo_url": "logo.com",
+        "created_at": "2026-07-01T00:00:01Z",
+        "updated_at": "2026-07-01T00:00:01Z"
+      },
+      "date_made": "2026-07-20",
+      "created_at": "2026-07-25T12:00:00Z",
+      "updated_at": "2026-07-25T12:00:00Z"
     }
   ```
 

@@ -25,11 +25,11 @@ public class Ingredient {
 
     @Column(insertable = false, updatable = false)
     @CreationTimestamp
-    private Instant created;
+    private Instant createdAt;
 
     @Column(insertable = false, updatable = false)
     @UpdateTimestamp
-    private Instant updated;
+    private Instant updatedAt;
 
     //-------------------------------------------
     // Constructors
@@ -60,20 +60,20 @@ public class Ingredient {
         this.name = name;
     }
 
-    public Instant getCreated() {
-        return created;
+    public Instant getCreatedAt() {
+        return createdAt;
     }
 
-    public void setCreated(Instant created) {
-        this.created = created;
+    public void setCreatedAt(Instant createdAt) {
+        this.createdAt = createdAt;
     }
 
-    public Instant getUpdated() {
-        return this.updated;
+    public Instant getUpdatedAt() {
+        return this.updatedAt;
     }
 
-    public void setUpdated(Instant updated) {
-        this.updated = updated;
+    public void setUpdatedAt(Instant updatedAt) {
+        this.updatedAt = updatedAt;
     }
 
 
@@ -83,6 +83,6 @@ public class Ingredient {
 
     @Override
     public String toString() {
-        return String.format("Ingredient(id=%d, name=%s, created=%s, updated=%s", id, name, created, updated);
+        return String.format("Ingredient(id=%d, name=%s, created=%s, updated=%s", id, name, createdAt, updatedAt);
     }
 }
