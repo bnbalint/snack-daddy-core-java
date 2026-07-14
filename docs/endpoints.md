@@ -4,8 +4,8 @@
 ---
 ### GET all teams
 - USAGE:
-    - Dropdown on [Log Snack Delivery](database.md#log-snack-delivery)
-    - USAGE: List on [Team Entry](database.md#team-entry)
+    - Dropdown on [Log Snack Delivery](frontend.md#log-snack-delivery)
+    - List on [Team Entry](frontend.md#team-entry)
 - GET  `/teams`
 - Response
   ```json
@@ -13,12 +13,12 @@
      {
        "id": 1,
        "name": "Mules",
-       "Rink": "BAIREL",
-       "Level": "D5",
-       "PrimaryColor": "#b88907",
-       "SecondaryColor": "#000000",
-       "TernaryColor": "#c42323",
-       "LogoUrl": "",
+       "rink": "BAIREL",
+       "level": "D5",
+       "primary_color": "#b88907",
+       "secondary_color": "#000000",
+       "ternary_color": "#c42323",
+       "logo_url": "",
        "created_at": "2026-07-01T00:00:01Z",
        "updated_at": "2026-07-01T00:00:01Z"
      }
@@ -27,18 +27,19 @@
 
 
 ### Add to teams
-- USAGE: Submit on [View / Modify Snack Difficulty](database.md#view--modify-snack-difficulty)
+- USAGE
+  - Submit on [View / Modify Snack Difficulty](frontend.md#view--modify-snack-difficulty)
 - POST `/teams`
 - Body
    ```json
      {
        "name": "Mules",
-       "Rink": "BAIREL",
-       "Level": "D5",
-       "PrimaryColor": "#b88907",
-       "SecondaryColor": "#000000",
-       "TernaryColor": "#c42323",
-       "LogoUrl": ""
+       "rink": "BAIREL",
+       "level": "D5",
+       "primary_color": "#b88907",
+       "secondary_color": "#000000",
+       "ternary_color": "#c42323",
+       "logo_url": ""
        }
    ```
 - Response
@@ -46,12 +47,12 @@
     {
       "id": 1,
       "name": "Mules",
-      "Rink": "BAIREL",
-      "Level": "D5",
-      "PrimaryColor": "#b88907",
-      "SecondaryColor": "#000000",
-      "TernaryColor": "#c42323",
-      "LogoUrl": "",
+      "rink": "BAIREL",
+      "level": "D5",
+      "primary_color": "#b88907",
+      "secondary_color": "#000000",
+      "ternary_color": "#c42323",
+      "logo_url": "",
       "created_at": "2026-07-01T00:00:01Z",
       "updated_at": "2026-07-01T00:00:01Z"
       }
@@ -62,7 +63,8 @@
 ---
 
 ### GET all ingredients
-- USAGE: List on [Ingredient Entry](database.md#ingredient-entry)
+- USAGE
+  - List on [Ingredient Entry](frontend.md#ingredient-entry)
 - GET  `/ingredients`
 - Response
    ```json
@@ -83,7 +85,8 @@
    ```
 
 ### Add to ingredients
-- USAGE: Submit on [Ingredient Entry](database.md#ingredient-entry)
+- USAGE
+  - Submit on [Ingredient Entry](frontend.md#ingredient-entry)
 - POST `\ingredients`
 - Body
    ```json
@@ -106,30 +109,31 @@
 ---
 ### GET all users
 - USAGE:
+  - Future admin page of some kind (for viewing stats, registrations, etc)
 - GET  `/users`
 - Response
   ```json
     [
       {
         "id": 1,
-        "First_name": "Roger",
-        "Last_name": "Hogwarts",
-        "Email": "r.h@gmail.com",
-        "Teams": [
+        "first_name": "Roger",
+        "last_name": "Hogwarts",
+        "email": "r.h@gmail.com",
+        "teams": [
           {
             "id": 1,
             "name": "Mules",
             "Rink": "BAIREL",
             "Level": "D5",
-            "PrimaryColor": "#b88907",
-            "SecondaryColor": "#000000",
-            "TernaryColor": "#c42323",
-            "LogoUrl": "",
+            "primary_color": "#b88907",
+            "secondary_color": "#000000",
+            "ternary_color": "#c42323",
+            "logo_url": "",
             "created_at": "2026-07-01T00:00:01Z",
             "updated_at": "2026-07-01T00:00:01Z"
             }
         ],
-        "Allergies": [
+        "allergies": [
           {
             "id": 1,
             "name": "Pecan",
@@ -142,11 +146,11 @@
       },
       {
         "id": 2,
-        "First_name": "Brandi",
-        "Last_name": "Hogwarts",
-        "Email": "r.h@gmail.com",
-        "Teams": [],
-        "Allergies": [],
+        "first_name": "Brandi",
+        "last_name": "Hogwarts",
+        "email": "r.h@gmail.com",
+        "teams": [],
+        "allergies": [],
         "created_at": "2026-07-01T00:00:01Z",
         "updated_at": "2026-07-01T00:00:01Z"
       }
@@ -156,28 +160,29 @@
 
 ### Add to users
 - USAGE:
+  - Create a new user
 - POST `/users`
 - Body
    ```json
      {
-       "First_name": "Roger",
-       "Last_name": "Hogwarts",
-       "Email": "r.h@gmail.com",
-       "Teams": [
+       "first_name": "Roger",
+       "last_name": "Hogwarts",
+       "email": "r.h@gmail.com",
+       "teams": [
          {
            "id": 1,
            "name": "Mules",
            "Rink": "BAIREL",
            "Level": "D5",
-           "PrimaryColor": "#b88907",
-           "SecondaryColor": "#000000",
-           "TernaryColor": "#c42323",
-           "LogoUrl": "",
+           "primary_color": "#b88907",
+           "secondary_color": "#000000",
+           "ternary_color": "#c42323",
+           "logo_url": "",
            "created_at": "2026-07-01T00:00:01Z",
            "updated_at": "2026-07-01T00:00:01Z"
            }
        ],
-       "Allergies": [
+       "allergies": [
          {
            "id": 1,
            "name": "Pecan",
@@ -191,24 +196,24 @@
   ```json
     {
       "id": 1,
-      "First_name": "Roger",
-      "Last_name": "Hogwarts",
-      "Email": "r.h@gmail.com",
-      "Teams": [
+      "first_name": "Roger",
+      "last_name": "Hogwarts",
+      "email": "r.h@gmail.com",
+      "teams": [
         {
           "id": 1,
           "name": "Mules",
           "Rink": "BAIREL",
           "Level": "D5",
-          "PrimaryColor": "#b88907",
-          "SecondaryColor": "#000000",
-          "TernaryColor": "#c42323",
-          "LogoUrl": "",
+          "primary_color": "#b88907",
+          "secondary_color": "#000000",
+          "ternary_color": "#c42323",
+          "logo_url": "",
           "created_at": "2026-07-01T00:00:01Z",
           "updated_at": "2026-07-01T00:00:01Z"
           }
       ],
-      "Allergies": [
+      "allergies": [
         {
           "id": 1,
           "name": "Pecan",
@@ -228,9 +233,9 @@
 
 ### GET all snacks
 - USAGE:
-    - Dropdown on [Log Snack Delivery](database.md#log-snack-delivery)
-    - Display for [View / Modify Snack Difficulty](database.md#view--modify-snack-difficulty)
-    - List on [Snack Entry](database.md#snack-entry)
+    - Dropdown on [Log Snack Delivery](frontend.md#log-snack-delivery)
+    - Display for [View / Modify Snack Difficulty](frontend.md#view--modify-snack-difficulty)
+    - List on [Snack Entry](frontend.md#snack-entry)
 - GET  `/snacks`
 - Response
   ```json
@@ -238,11 +243,11 @@
       {
         "id": 1,
         "name": "Rice Crispie Treat",
-        "Sweet": true,
-        "Savory": false,
-        "Difficulty": 2,
-        "Recipe_Url": "",
-        "Ingredients": [
+        "sweet": true,
+        "savory": false,
+        "difficulty": 2,
+        "recipe_url": "",
+        "ingredients": [
           {
             "id": 4,
             "name": "Rice Crispy Cereal",
@@ -270,17 +275,18 @@
 
 
 ### Add to snacks
-- USAGE: Submit on [Snack Entry](database.md#snack-entry)
+- USAGE
+  - Submit on [Snack Entry](frontend.md#snack-entry)
 - POST `/snacks`
 - Body
    ```json
      {
        "name": "Rice Crispie Treat",
-       "Sweet": true,
-       "Savory": false,
-       "Difficulty": 2,
-       "Recipe_Url": "",
-       "Ingredients": [
+       "sweet": true,
+       "savory": false,
+       "difficulty": 2,
+       "recipe_url": "",
+       "ingredients": [
          {
            "id": 4,
            "name": "Rice Crispy Cereal",
@@ -307,11 +313,11 @@
     {
       "id": 1,
       "name": "Rice Crispie Treat",
-      "Sweet": true,
-      "Savory": false,
-      "Difficulty": 2,
-      "Recipe_Url": "",
-      "Ingredients": [
+      "sweet": true,
+      "savory": false,
+      "difficulty": 2,
+      "recipe_url": "",
+      "ingredients": [
         {
           "id": 4,
           "name": "Rice Crispy Cereal",
@@ -337,7 +343,8 @@
   ```
 
 ### Update snacks
-- USAGE: Submit after modifying difficulty on [View / Modify Snack Difficulty](database.md#view--modify-snack-difficulty)
+- USAGE
+  - Submit after modifying difficulty on [View / Modify Snack Difficulty](frontend.md#view--modify-snack-difficulty)
 - PUT `/snacks`
 - Body
    ```json
@@ -345,11 +352,11 @@
        {
          "id": 1,
          "name": "Rice Crispie Treat",
-         "Sweet": true,
-         "Savory": false,
-         "Difficulty": 5,
-         "Recipe_Url": "",
-         "Ingredients": [
+         "sweet": true,
+         "savory": false,
+         "difficulty": 5,
+         "recipe_url": "",
+         "ingredients": [
            {
              "id": 4,
              "name": "Rice Crispy Cereal",
@@ -418,7 +425,8 @@
 ---
 
 ## GET all snack_log
-- USAGE: View on [View Snack Log](database.md#view-snack-log)
+- USAGE
+  - View on [View Snack Log](frontend.md#view-snack-log)
 - GET `/snack-log`
 - Response
   ```json
@@ -540,7 +548,8 @@
 
 
 ## Add to snack_log
-- USAGE: Submit on [Log Snack Delivery](frontend.md#log-snack-delivery)
+- USAGE
+  - Submit on [Log Snack Delivery](frontend.md#log-snack-delivery)
 - POST `/snack-log`
 - Body
    ```json
@@ -615,7 +624,8 @@
 ---
 
 ## GET all rinks
-- USAGE: Display on [Team Entry](./frontend.md#team-entry)
+- USAGE
+  - Display on [Team Entry](./frontend.md#team-entry)
 - GET `/rinks`
 - Response
   ```json
@@ -627,7 +637,8 @@
 ---
 
 ## GET all rinks
-- USAGE: Display on [Team Entry](frontend.md#team-entry)
+- USAGE
+  - Display on [Team Entry](frontend.md#team-entry)
 - GET `/levels`
 - Response
   ```json
@@ -644,11 +655,12 @@
 ---
 
 ## Upload logo
-- USAGE: Upload button on [Team Entry](database.md#team-entry)
+- USAGE
+  - Upload button on [Team Entry](frontend.md#team-entry)
 - POST `/upload-image`
 - Body
-   ```
+   ```json
    ```
 - Response
-    ```
+    ```json
     ```
