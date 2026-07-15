@@ -5,6 +5,7 @@ import org.bnbalint.snackdaddy.repositories.TeamRepository;
 import org.hibernate.exception.ConstraintViolationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.dao.OptimisticLockingFailureException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -73,7 +74,7 @@ public class TeamController {
             Team savedTeam = teamRepo.save(team);
             log.debug("saved team = {}", savedTeam);
             return new ResponseEntity<>(savedTeam, HttpStatus.CREATED);
-        } catch (ConstraintViolationException ex) {
+        } catch (OptimisticLockingFailureException ex) {
             log.error("Conflict error while saving team to the database", ex);
             return ResponseEntity.badRequest().build();
         } catch (Exception ex) {
