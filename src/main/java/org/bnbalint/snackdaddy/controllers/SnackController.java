@@ -82,4 +82,31 @@ public class SnackController {
             return ResponseEntity.internalServerError().build();
         }
     }
+
+    /**
+     * Update existing snacks in the database
+     * @param snacks - list of snacks to update
+     * @return the list of updated snacks
+     */
+    @RequestMapping(
+            value = "/snacks",
+            method = RequestMethod.PUT,
+            consumes = JSON,
+            produces = JSON
+    )
+    public ResponseEntity<List<Snack>> updateSnacks(@RequestBody List<Snack> snacks){
+        log.trace("updateSnacks - snacks = {}", snacks);
+
+        try {
+            List<Snack> savedSnacks = snackRepo.saveAll(snacks);
+            log.debug("saved snacks = {}", savedSnacks);
+            return ResponseEntity.ok(savedSnacks);
+        } catch (OptimisticLockingFailureException ex) {
+            log.error("Conflict error while updating snacks in the database", ex);
+            return ResponseEntity.badRequest().build();
+        } catch (Exception ex) {
+            log.error("Error while updating snacks in the database", ex);
+            return ResponseEntity.internalServerError().build();
+        }
+    }
 }

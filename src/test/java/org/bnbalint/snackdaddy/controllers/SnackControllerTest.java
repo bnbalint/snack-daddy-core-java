@@ -17,8 +17,7 @@ import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -214,6 +213,129 @@ public class SnackControllerTest {
         mockMvc.perform(post("/snacks")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(snack))
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isInternalServerError())
+                .andDo(result -> System.out.println(result.getResponse().getContentAsString())); // print the response
+    }
+
+
+    //---------------------------------------------------------------
+    // updateSnacks
+    //
+    @Test
+    void test_updateSnacks_success() throws Exception {
+        //--------------------------------------------------
+        // SET VALUES
+        Ingredient ingredient1 = makeIngredient("Rice Crispy Cereal", 4);
+        Ingredient ingredient2 = makeIngredient("Margarine", 5);
+        Ingredient ingredient3 = makeIngredient("Marshmallow", 6);
+        Ingredient ingredient4 = makeIngredient("Vanilla", 7);
+        Ingredient[] ingredients = { ingredient1, ingredient2, ingredient3, ingredient4 };
+
+        // create the one to send in the request
+        Snack snack = new Snack(
+                "Rice Crispie Treat",
+                true,
+                false,
+                2,
+                ingredients
+        );
+        List<Snack> snacks = List.of(snack);
+
+        // create the one to return from the mock database
+        Snack savedSnack = new Snack(
+                "Rice Crispie Treat",
+                true,
+                false,
+                2,
+                ingredients
+        );
+        savedSnack.setId(1);
+        savedSnack.setCreatedAt(DATE);
+        savedSnack.setUpdatedAt(DATE);
+
+        //--------------------------------------------------
+        // CONFIGURE MOCKS
+        when(snackRepo.saveAll(any())).thenReturn(List.of(savedSnack));
+
+        //--------------------------------------------------
+        // EXECUTE & VERIFY RESULTS
+        mockMvc.perform(put("/snacks")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(snacks))
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andDo(result -> System.out.println(result.getResponse().getContentAsString())) // print the response
+                .andExpect(jsonPath("$.[0].id").value(1))
+                .andExpect(jsonPath("$.[0].name").value("Rice Crispie Treat"))
+                .andExpect(jsonPath("$.[0].sweet").value("true"))
+                .andExpect(jsonPath("$.[0].savory").value("false"))
+                .andExpect(jsonPath("$.[0].difficulty").value(2))
+                .andExpect(jsonPath("$.[0].ingredients").isNotEmpty())
+                .andExpect(jsonPath("$.[0].created_at").value(DATE.atOffset(ZoneOffset.UTC).toString()))
+                .andExpect(jsonPath("$.[0].updated_at").value(DATE.atOffset(ZoneOffset.UTC).toString()));
+    }
+
+    @Test
+    void test_updateSnacks_conflict() throws Exception {
+        //--------------------------------------------------
+        // SET VALUES
+        Ingredient ingredient1 = makeIngredient("Rice Crispy Cereal", 4);
+        Ingredient ingredient2 = makeIngredient("Margarine", 5);
+        Ingredient ingredient3 = makeIngredient("Marshmallow", 6);
+        Ingredient ingredient4 = makeIngredient("Vanilla", 7);
+        Ingredient[] ingredients = { ingredient1, ingredient2, ingredient3, ingredient4 };
+        Snack snack = new Snack(
+                "Rice Crispie Treat",
+                true,
+                false,
+                2,
+                ingredients
+        );
+        List<Snack> snacks = List.of(snack);
+
+        //--------------------------------------------------
+        // CONFIGURE MOCKS
+        when(snackRepo.saveAll(any())).thenThrow(new OptimisticLockingFailureException("DB conflict"));
+
+        //--------------------------------------------------
+        // EXECUTE & VERIFY RESULTS
+        mockMvc.perform(put("/snacks")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(snacks))
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest())
+                .andDo(result -> System.out.println(result.getResponse().getContentAsString())); // print the response
+    }
+
+    @Test
+    void test_updateSnacks_error() throws Exception {
+        //--------------------------------------------------
+        // SET VALUES
+        Ingredient ingredient1 = makeIngredient("Rice Crispy Cereal", 4);
+        Ingredient ingredient2 = makeIngredient("Margarine", 5);
+        Ingredient ingredient3 = makeIngredient("Marshmallow", 6);
+        Ingredient ingredient4 = makeIngredient("Vanilla", 7);
+        Ingredient[] ingredients = { ingredient1, ingredient2, ingredient3, ingredient4 };
+        Snack snack = new Snack(
+                "Rice Crispie Treat",
+                true,
+                false,
+                2,
+                ingredients
+        );
+        List<Snack> snacks = List.of(snack);
+
+
+        //--------------------------------------------------
+        // CONFIGURE MOCKS
+        when(snackRepo.saveAll(any())).thenThrow(new IllegalArgumentException("DB error"));
+
+        //--------------------------------------------------
+        // EXECUTE & VERIFY RESULTS
+        mockMvc.perform(put("/snacks")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(snacks))
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isInternalServerError())
                 .andDo(result -> System.out.println(result.getResponse().getContentAsString())); // print the response
