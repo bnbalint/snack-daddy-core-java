@@ -1,10 +1,8 @@
 package org.bnbalint.snackdaddy.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.bnbalint.snackdaddy.models.Level;
-import org.bnbalint.snackdaddy.models.Rink;
-import org.bnbalint.snackdaddy.models.Team;
-import org.bnbalint.snackdaddy.repositories.TeamRepository;
+import org.bnbalint.snackdaddy.models.*;
+import org.bnbalint.snackdaddy.repositories.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -25,8 +23,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(TeamController.class)
-public class TeamControllerTest {
+@WebMvcTest(UserController.class)
+public class UserControllerTest {
 
     static Instant DATE = Instant.parse("2026-07-01T00:00:01Z");
 
@@ -38,15 +36,15 @@ public class TeamControllerTest {
 
 
     @MockBean
-    private TeamRepository teamRepo;
+    private UserRepository userRepo;
 
 
     //---------------------------------------------------------------
-    // getAllTeams
+    // getAllUsers
     //
 
     @Test
-    void test_getAllTeams_success() throws Exception {
+    void test_getAllUsers_success() throws Exception {
         //--------------------------------------------------
         // SET VALUES
         Team team = new Team(
@@ -56,62 +54,70 @@ public class TeamControllerTest {
                 "#b88907",
                 "#000000",
                 "#c42323",
-                "logo.com"
+                ""
         );
         team.setId(1);
         team.setCreatedAt(DATE);
         team.setUpdatedAt(DATE);
-        System.out.println("Team = " + team);
+        Team[] teams = { team };
+
+        Ingredient ingredient = new Ingredient("Pecan");
+        ingredient.setId(1);
+        ingredient.setCreatedAt(DATE);
+        ingredient.setUpdatedAt(DATE);
+        Ingredient[] allergies = { ingredient };
+
+        User user = new User("Roger", "Hogwarts", "r.h@gmail.com", teams, allergies);
+        user.setId(1);
+        user.setCreatedAt(DATE);
+        user.setUpdatedAt(DATE);
+        System.out.println("User = " + user);
 
         //--------------------------------------------------
         // CONFIGURE MOCKS
-        when(teamRepo.findAll()).thenReturn(List.of(team));
+        when(userRepo.findAll()).thenReturn(List.of(user));
 
         //--------------------------------------------------
         // EXECUTE & VERIFY RESULTS
-        mockMvc.perform(get("/teams")
+        mockMvc.perform(get("/users")
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andDo(print()) // print the response
                 .andExpect(jsonPath("$.[0].id").value(1))
-                .andExpect(jsonPath("$.[0].name").value("Mules"))
-                .andExpect(jsonPath("$.[0].rink").value("BAIREL"))
-                .andExpect(jsonPath("$.[0].level").value("D5"))
-                .andExpect(jsonPath("$.[0].primary_color").value("#b88907"))
-                .andExpect(jsonPath("$.[0].secondary_color").value("#000000"))
-                .andExpect(jsonPath("$.[0].ternary_color").value("#c42323"))
-                .andExpect(jsonPath("$.[0].logo_url").value("logo.com"))
+                .andExpect(jsonPath("$.[0].first_name").value("Roger"))
+                .andExpect(jsonPath("$.[0].last_name").value("Hogwarts"))
+                .andExpect(jsonPath("$.[0].email").value("r.h@gmail.com"))
+                .andExpect(jsonPath("$.[0].teams").isArray())
+                .andExpect(jsonPath("$.[0].allergies").isArray())
                 .andExpect(jsonPath("$.[0].created_at").value(DATE.atOffset(ZoneOffset.UTC).toString()))
                 .andExpect(jsonPath("$.[0].updated_at").value(DATE.atOffset(ZoneOffset.UTC).toString()));
     }
 
 
     @Test
-    void test_getAllTeams_error() throws Exception {
+    void test_getAllUsers_error() throws Exception {
         //--------------------------------------------------
         // SET VALUES
 
         //--------------------------------------------------
         // CONFIGURE MOCKS
-        when(teamRepo.findAll()).thenThrow(new IllegalArgumentException("DB error"));
+        when(userRepo.findAll()).thenThrow(new IllegalArgumentException("DB error"));
 
         //--------------------------------------------------
         // EXECUTE & VERIFY RESULTS
-        mockMvc.perform(get("/teams")
+        mockMvc.perform(get("/users")
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isInternalServerError())
                 .andDo(print()); // print the response
     }
 
     //---------------------------------------------------------------
-    // addTeam
+    // addUser
     //
     @Test
-    void test_addTeam_success() throws Exception {
+    void test_addUser_success() throws Exception {
         //--------------------------------------------------
         // SET VALUES
-
-        // create the one to send in the request
         Team team = new Team(
                 "Mules",
                 Rink.BAIREL,
@@ -119,49 +125,52 @@ public class TeamControllerTest {
                 "#b88907",
                 "#000000",
                 "#c42323",
-                "logo.com"
+                ""
         );
+        team.setId(1);
+        team.setCreatedAt(DATE);
+        team.setUpdatedAt(DATE);
+        Team[] teams = { team };
+
+        Ingredient ingredient = new Ingredient("Pecan");
+        ingredient.setId(1);
+        ingredient.setCreatedAt(DATE);
+        ingredient.setUpdatedAt(DATE);
+        Ingredient[] allergies = { ingredient };
+
+        // create the one to send in the request
+        User user = new User("Roger", "Hogwarts", "r.h@gmail.com", teams, allergies);
 
         // create the one to return from the mock database
-        Team savedTeam = new Team(
-                "Mules",
-                Rink.BAIREL,
-                Level.D5,
-                "#b88907",
-                "#000000",
-                "#c42323",
-                "logo.com"
-        );
-        savedTeam.setId(1);
-        savedTeam.setCreatedAt(DATE);
-        savedTeam.setUpdatedAt(DATE);
+        User savedUser = new User("Roger", "Hogwarts", "r.h@gmail.com", teams, allergies);
+        savedUser.setId(1);
+        savedUser.setCreatedAt(DATE);
+        savedUser.setUpdatedAt(DATE);
 
         //--------------------------------------------------
         // CONFIGURE MOCKS
-        when(teamRepo.save(any())).thenReturn(savedTeam);
+        when(userRepo.save(any())).thenReturn(savedUser);
 
         //--------------------------------------------------
         // EXECUTE & VERIFY RESULTS
-        mockMvc.perform(post("/teams")
+        mockMvc.perform(post("/users")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(team))
+                        .content(objectMapper.writeValueAsString(user))
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated())
                 .andDo(result -> System.out.println(result.getResponse().getContentAsString())) // print the response
                 .andExpect(jsonPath("$.id").value(1))
-                .andExpect(jsonPath("$.name").value("Mules"))
-                .andExpect(jsonPath("$.rink").value("BAIREL"))
-                .andExpect(jsonPath("$.level").value("D5"))
-                .andExpect(jsonPath("$.primary_color").value("#b88907"))
-                .andExpect(jsonPath("$.secondary_color").value("#000000"))
-                .andExpect(jsonPath("$.ternary_color").value("#c42323"))
-                .andExpect(jsonPath(".logo_url").value("logo.com"))
+                .andExpect(jsonPath("$.first_name").value("Roger"))
+                .andExpect(jsonPath("$.last_name").value("Hogwarts"))
+                .andExpect(jsonPath("$.email").value("r.h@gmail.com"))
+                .andExpect(jsonPath("$.teams").isArray())
+                .andExpect(jsonPath("$.allergies").isArray())
                 .andExpect(jsonPath("$.created_at").value(DATE.atOffset(ZoneOffset.UTC).toString()))
                 .andExpect(jsonPath("$.updated_at").value(DATE.atOffset(ZoneOffset.UTC).toString()));
     }
 
     @Test
-    void test_addTeam_conflict() throws Exception {
+    void test_addUser_conflict() throws Exception {
         //--------------------------------------------------
         // SET VALUES
         Team team = new Team(
@@ -171,25 +180,38 @@ public class TeamControllerTest {
                 "#b88907",
                 "#000000",
                 "#c42323",
-                "logo.com"
+                ""
         );
+        team.setId(1);
+        team.setCreatedAt(DATE);
+        team.setUpdatedAt(DATE);
+        Team[] teams = { team };
+
+        Ingredient ingredient = new Ingredient("Pecan");
+        ingredient.setId(1);
+        ingredient.setCreatedAt(DATE);
+        ingredient.setUpdatedAt(DATE);
+        Ingredient[] allergies = { ingredient };
+
+        User user = new User("Roger", "Hogwarts", "r.h@gmail.com", teams, allergies);
+        System.out.println("User = " + user);
 
         //--------------------------------------------------
         // CONFIGURE MOCKS
-        when(teamRepo.save(any())).thenThrow(new OptimisticLockingFailureException("DB conflict"));
+        when(userRepo.save(any())).thenThrow(new OptimisticLockingFailureException("DB conflict"));
 
         //--------------------------------------------------
         // EXECUTE & VERIFY RESULTS
-        mockMvc.perform(post("/teams")
+        mockMvc.perform(post("/users")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(team))
+                        .content(objectMapper.writeValueAsString(user))
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
                 .andDo(result -> System.out.println(result.getResponse().getContentAsString())); // print the response
     }
 
     @Test
-    void test_addTeam_error() throws Exception {
+    void test_addUser_error() throws Exception {
         //--------------------------------------------------
         // SET VALUES
         Team team = new Team(
@@ -199,18 +221,31 @@ public class TeamControllerTest {
                 "#b88907",
                 "#000000",
                 "#c42323",
-                "logo.com"
+                ""
         );
+        team.setId(1);
+        team.setCreatedAt(DATE);
+        team.setUpdatedAt(DATE);
+        Team[] teams = { team };
+
+        Ingredient ingredient = new Ingredient("Pecan");
+        ingredient.setId(1);
+        ingredient.setCreatedAt(DATE);
+        ingredient.setUpdatedAt(DATE);
+        Ingredient[] allergies = { ingredient };
+
+        User user = new User("Roger", "Hogwarts", "r.h@gmail.com", teams, allergies);
+        System.out.println("User = " + user);
 
         //--------------------------------------------------
         // CONFIGURE MOCKS
-        when(teamRepo.save(any())).thenThrow(new IllegalArgumentException("DB error"));
+        when(userRepo.save(any())).thenThrow(new IllegalArgumentException("DB error"));
 
         //--------------------------------------------------
         // EXECUTE & VERIFY RESULTS
-        mockMvc.perform(post("/teams")
+        mockMvc.perform(post("/users")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(team))
+                        .content(objectMapper.writeValueAsString(user))
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isInternalServerError())
                 .andDo(result -> System.out.println(result.getResponse().getContentAsString())); // print the response

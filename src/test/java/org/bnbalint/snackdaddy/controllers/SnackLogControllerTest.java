@@ -2,7 +2,7 @@ package org.bnbalint.snackdaddy.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.bnbalint.snackdaddy.models.*;
-import org.bnbalint.snackdaddy.repositories.SnackRepository;
+import org.bnbalint.snackdaddy.repositories.SnackLogRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -12,6 +12,8 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.time.Instant;
+import java.time.LocalDate;
+import java.time.Month;
 import java.time.ZoneOffset;
 import java.util.List;
 
@@ -23,8 +25,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(SnackController.class)
-public class SnackControllerTest {
+@WebMvcTest(SnackLogController.class)
+public class SnackLogControllerTest {
 
     static Instant DATE = Instant.parse("2026-07-01T00:00:01Z");
 
@@ -36,15 +38,15 @@ public class SnackControllerTest {
 
 
     @MockBean
-    private SnackRepository snackRepo;
+    private SnackLogRepository snackLogRepo;
 
 
     //---------------------------------------------------------------
-    // getAllSnacks
+    // getAllSnackLogEntries
     //
 
     @Test
-    void test_getAllSnacks_success() throws Exception {
+    void test_getAllSnackLogEntries_success() throws Exception {
         //--------------------------------------------------
         // SET VALUES
         Ingredient ingredient1 = makeIngredient("Rice Crispy Cereal", 4);
@@ -62,51 +64,83 @@ public class SnackControllerTest {
         snack.setId(1);
         snack.setCreatedAt(DATE);
         snack.setUpdatedAt(DATE);
-        System.out.println("Snack = " + snack);
 
+        Team team = new Team(
+                "Mules",
+                Rink.BAIREL,
+                Level.D5,
+                "#b88907",
+                "#000000",
+                "#c42323",
+                "logo.com"
+        );
+        team.setId(1);
+        team.setCreatedAt(DATE);
+        team.setUpdatedAt(DATE);
+
+        SnackLog snackLogEntry = new SnackLog(snack, team, LocalDate.of(2026, Month.JUNE, 1));
+        snackLogEntry.setId(1);
+        snackLogEntry.setCreatedAt(DATE);
+        snackLogEntry.setUpdatedAt(DATE);
+        System.out.println("SnackLogEntry = " + snackLogEntry);
+        
         //--------------------------------------------------
         // CONFIGURE MOCKS
-        when(snackRepo.findAll()).thenReturn(List.of(snack));
+        when(snackLogRepo.findAll()).thenReturn(List.of(snackLogEntry));
 
         //--------------------------------------------------
         // EXECUTE & VERIFY RESULTS
-        mockMvc.perform(get("/snacks")
+        mockMvc.perform(get("/snack-log")
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andDo(print()) // print the response
-                .andExpect(jsonPath("$.[0].id").value(1))
-                .andExpect(jsonPath("$.[0].name").value("Rice Crispie Treat"))
-                .andExpect(jsonPath("$.[0].sweet").value("true"))
-                .andExpect(jsonPath("$.[0].savory").value("false"))
-                .andExpect(jsonPath("$.[0].difficulty").value(2))
-                .andExpect(jsonPath("$.[0].ingredients").isNotEmpty())
-                .andExpect(jsonPath("$.[0].created_at").value(DATE.atOffset(ZoneOffset.UTC).toString()))
-                .andExpect(jsonPath("$.[0].updated_at").value(DATE.atOffset(ZoneOffset.UTC).toString()));
+
+        .andExpect(jsonPath("$.[0].id").value(1))
+        .andExpect(jsonPath("$.[0].snack.name").value("Rice Crispie Treat"))
+        .andExpect(jsonPath("$.[0].snack.sweet").value(true))
+        .andExpect(jsonPath("$.[0].snack.savory").value(false))
+        .andExpect(jsonPath("$.[0].snack.difficulty").value(2))
+        .andExpect(jsonPath("$.[0].snack.created_at").value(DATE.atOffset(ZoneOffset.UTC).toString()))
+        .andExpect(jsonPath("$.[0].snack.updated_at").value(DATE.atOffset(ZoneOffset.UTC).toString()))
+        .andExpect(jsonPath("$.[0].snack.ingredients").isArray())
+
+        .andExpect(jsonPath("$.[0].team.name").value("Mules"))
+        .andExpect(jsonPath("$.[0].team.rink").value("BAIREL"))
+        .andExpect(jsonPath("$.[0].team.level").value("D5"))
+        .andExpect(jsonPath("$.[0].team.primary_color").value("#b88907"))
+        .andExpect(jsonPath("$.[0].team.secondary_color").value("#000000"))
+        .andExpect(jsonPath("$.[0].team.ternary_color").value("#c42323"))
+        .andExpect(jsonPath("$.[0].team.logo_url").value("logo.com"))
+
+        .andExpect(jsonPath("$.[0].date_made").value("2026-06-01"))
+        .andExpect(jsonPath("$.[0].created_at").value(DATE.atOffset(ZoneOffset.UTC).toString()))
+        .andExpect(jsonPath("$.[0].updated_at").value(DATE.atOffset(ZoneOffset.UTC).toString()));
     }
 
 
     @Test
-    void test_getAllSnacks_error() throws Exception {
+    void test_getAllSnackLogEntries_error() throws Exception {
         //--------------------------------------------------
         // SET VALUES
 
+
         //--------------------------------------------------
         // CONFIGURE MOCKS
-        when(snackRepo.findAll()).thenThrow(new IllegalArgumentException("DB error"));
+        when(snackLogRepo.findAll()).thenThrow(new IllegalArgumentException("DB error"));
 
         //--------------------------------------------------
         // EXECUTE & VERIFY RESULTS
-        mockMvc.perform(get("/snacks")
+        mockMvc.perform(get("/snack-log")
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isInternalServerError())
                 .andDo(print()); // print the response
     }
 
     //---------------------------------------------------------------
-    // addSnack
+    // addToSnackLog
     //
     @Test
-    void test_addSnack_success() throws Exception {
+    void test_addToSnackLog_success() throws Exception {
         //--------------------------------------------------
         // SET VALUES
         Ingredient ingredient1 = makeIngredient("Rice Crispy Cereal", 4);
@@ -114,8 +148,6 @@ public class SnackControllerTest {
         Ingredient ingredient3 = makeIngredient("Marshmallow", 6);
         Ingredient ingredient4 = makeIngredient("Vanilla", 7);
         Ingredient[] ingredients = { ingredient1, ingredient2, ingredient3, ingredient4 };
-
-        // create the one to send in the request
         Snack snack = new Snack(
                 "Rice Crispie Treat",
                 true,
@@ -123,43 +155,68 @@ public class SnackControllerTest {
                 2,
                 ingredients
         );
+        snack.setId(1);
+        snack.setCreatedAt(DATE);
+        snack.setUpdatedAt(DATE);
+
+        Team team = new Team(
+                "Mules",
+                Rink.BAIREL,
+                Level.D5,
+                "#b88907",
+                "#000000",
+                "#c42323",
+                "logo.com"
+        );
+        team.setId(1);
+        team.setCreatedAt(DATE);
+        team.setUpdatedAt(DATE);
+
+        // create the one to send in the request
+        SnackLog snackLogEntry = new SnackLog(snack, team, LocalDate.of(2026, Month.JUNE, 1));
 
         // create the one to return from the mock database
-        Snack savedSnack = new Snack(
-                "Rice Crispie Treat",
-                true,
-                false,
-                2,
-                ingredients
-        );
-        savedSnack.setId(1);
-        savedSnack.setCreatedAt(DATE);
-        savedSnack.setUpdatedAt(DATE);
+        SnackLog savedSnackLogEntry = new SnackLog(snack, team, LocalDate.of(2026, Month.JUNE, 1));
+        savedSnackLogEntry.setId(1);
+        savedSnackLogEntry.setCreatedAt(DATE);
+        savedSnackLogEntry.setUpdatedAt(DATE);
 
         //--------------------------------------------------
         // CONFIGURE MOCKS
-        when(snackRepo.save(any())).thenReturn(savedSnack);
+        when(snackLogRepo.save(any())).thenReturn(savedSnackLogEntry);
 
         //--------------------------------------------------
         // EXECUTE & VERIFY RESULTS
-        mockMvc.perform(post("/snacks")
+        mockMvc.perform(post("/snack-log")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(snack))
+                        .content(objectMapper.writeValueAsString(snackLogEntry))
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated())
                 .andDo(result -> System.out.println(result.getResponse().getContentAsString())) // print the response
                 .andExpect(jsonPath("$.id").value(1))
-                .andExpect(jsonPath("$.name").value("Rice Crispie Treat"))
-                .andExpect(jsonPath("$.sweet").value("true"))
-                .andExpect(jsonPath("$.savory").value("false"))
-                .andExpect(jsonPath("$.difficulty").value(2))
-                .andExpect(jsonPath("$.ingredients").isNotEmpty())
+                .andExpect(jsonPath("$.snack.name").value("Rice Crispie Treat"))
+                .andExpect(jsonPath("$.snack.sweet").value(true))
+                .andExpect(jsonPath("$.snack.savory").value(false))
+                .andExpect(jsonPath("$.snack.difficulty").value(2))
+                .andExpect(jsonPath("$.snack.created_at").value(DATE.atOffset(ZoneOffset.UTC).toString()))
+                .andExpect(jsonPath("$.snack.updated_at").value(DATE.atOffset(ZoneOffset.UTC).toString()))
+                .andExpect(jsonPath("$.snack.ingredients").isArray())
+
+                .andExpect(jsonPath("$.team.name").value("Mules"))
+                .andExpect(jsonPath("$.team.rink").value("BAIREL"))
+                .andExpect(jsonPath("$.team.level").value("D5"))
+                .andExpect(jsonPath("$.team.primary_color").value("#b88907"))
+                .andExpect(jsonPath("$.team.secondary_color").value("#000000"))
+                .andExpect(jsonPath("$.team.ternary_color").value("#c42323"))
+                .andExpect(jsonPath("$.team.logo_url").value("logo.com"))
+
+                .andExpect(jsonPath("$.date_made").value("2026-06-01"))
                 .andExpect(jsonPath("$.created_at").value(DATE.atOffset(ZoneOffset.UTC).toString()))
                 .andExpect(jsonPath("$.updated_at").value(DATE.atOffset(ZoneOffset.UTC).toString()));
     }
 
     @Test
-    void test_addSnack_conflict() throws Exception {
+    void test_addToSnackLog_conflict() throws Exception {
         //--------------------------------------------------
         // SET VALUES
         Ingredient ingredient1 = makeIngredient("Rice Crispy Cereal", 4);
@@ -174,23 +231,42 @@ public class SnackControllerTest {
                 2,
                 ingredients
         );
+        snack.setId(1);
+        snack.setCreatedAt(DATE);
+        snack.setUpdatedAt(DATE);
+
+        Team team = new Team(
+                "Mules",
+                Rink.BAIREL,
+                Level.D5,
+                "#b88907",
+                "#000000",
+                "#c42323",
+                "logo.com"
+        );
+        team.setId(1);
+        team.setCreatedAt(DATE);
+        team.setUpdatedAt(DATE);
+
+        // create the one to send in the request
+        SnackLog snackLogEntry = new SnackLog(snack, team, LocalDate.of(2026, Month.JUNE, 1));
 
         //--------------------------------------------------
         // CONFIGURE MOCKS
-        when(snackRepo.save(any())).thenThrow(new OptimisticLockingFailureException("DB conflict"));
+        when(snackLogRepo.save(any())).thenThrow(new OptimisticLockingFailureException("DB conflict"));
 
         //--------------------------------------------------
         // EXECUTE & VERIFY RESULTS
-        mockMvc.perform(post("/snacks")
+        mockMvc.perform(post("/snack-log")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(snack))
+                        .content(objectMapper.writeValueAsString(snackLogEntry))
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
                 .andDo(result -> System.out.println(result.getResponse().getContentAsString())); // print the response
     }
 
     @Test
-    void test_addSnack_error() throws Exception {
+    void test_addToSnackLog_error() throws Exception {
         //--------------------------------------------------
         // SET VALUES
         Ingredient ingredient1 = makeIngredient("Rice Crispy Cereal", 4);
@@ -205,19 +281,40 @@ public class SnackControllerTest {
                 2,
                 ingredients
         );
+        snack.setId(1);
+        snack.setCreatedAt(DATE);
+        snack.setUpdatedAt(DATE);
+
+        Team team = new Team(
+                "Mules",
+                Rink.BAIREL,
+                Level.D5,
+                "#b88907",
+                "#000000",
+                "#c42323",
+                "logo.com"
+        );
+        team.setId(1);
+        team.setCreatedAt(DATE);
+        team.setUpdatedAt(DATE);
+
+        // create the one to send in the request
+        SnackLog snackLogEntry = new SnackLog(snack, team, LocalDate.of(2026, Month.JUNE, 1));
+
         //--------------------------------------------------
         // CONFIGURE MOCKS
-        when(snackRepo.save(any())).thenThrow(new IllegalArgumentException("DB error"));
+        when(snackLogRepo.save(any())).thenThrow(new IllegalArgumentException("DB error"));
 
         //--------------------------------------------------
         // EXECUTE & VERIFY RESULTS
-        mockMvc.perform(post("/snacks")
+        mockMvc.perform(post("/snack-log")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(snack))
+                        .content(objectMapper.writeValueAsString(snackLogEntry))
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isInternalServerError())
                 .andDo(result -> System.out.println(result.getResponse().getContentAsString())); // print the response
     }
+
 
 
     /**

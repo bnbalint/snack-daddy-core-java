@@ -2,7 +2,6 @@ package org.bnbalint.snackdaddy.controllers;
 
 import org.bnbalint.snackdaddy.models.SnackLog;
 import org.bnbalint.snackdaddy.repositories.SnackLogRepository;
-import org.hibernate.exception.ConstraintViolationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.OptimisticLockingFailureException;
@@ -42,7 +41,7 @@ public class SnackLogController {
             method = RequestMethod.GET,
             produces = JSON
     )
-    public ResponseEntity<List<SnackLog>> getAllSnackLogs() {
+    public ResponseEntity<List<SnackLog>> getAllSnackLogEntries() {
         log.trace("getAllSnackLogs");
 
         try {

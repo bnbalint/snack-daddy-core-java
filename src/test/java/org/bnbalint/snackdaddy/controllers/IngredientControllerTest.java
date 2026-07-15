@@ -91,8 +91,11 @@ public class IngredientControllerTest {
     void test_addIngredient_success() throws Exception {
         //--------------------------------------------------
         // SET VALUES
+
+        // create the one to send in the request
         Ingredient ingredient = new Ingredient("Pecan");
 
+        // create the one to return from the mock database
         Ingredient savedIngredient = new Ingredient("Pecan");
         savedIngredient.setId(1);
         savedIngredient.setCreatedAt(DATE);
