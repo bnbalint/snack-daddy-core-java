@@ -21,9 +21,17 @@ import java.util.Arrays;
 @Table(name = "user_snack_rankings")
 public class UserSnackRanking {
 
+    @Id
+    @Column(name = "snack_id")
+    private Long snackId;
+
     @OneToOne
     @JoinColumn(name = "snack_id", referencedColumnName = "id")
     private Snack snack;
+
+    @Id
+    @Column(name = "user_id")
+    private Long userId;
 
     @OneToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
@@ -62,12 +70,29 @@ public class UserSnackRanking {
     //-------------------------------------------
     // Getters and Setters
     //
+
+    public Long getSnackId() {
+        return snackId;
+    }
+
+    public void setSnackId(Long snackId) {
+        this.snackId = snackId;
+    }
+
     public Snack getSnack() {
         return snack;
     }
 
     public void setSnack(Snack snack) {
         this.snack = snack;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public User getUser() {
