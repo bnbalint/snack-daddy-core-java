@@ -8,6 +8,7 @@ import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import java.io.Serializable;
 import java.time.Instant;
 import java.util.Arrays;
 
@@ -21,19 +22,17 @@ import java.util.Arrays;
 @Table(name = "user_snack_rankings")
 public class UserSnackRanking {
 
-    @Id
-    @Column(name = "snack_id")
-    private Long snackId;
+    // this is the composite ID of userId and snackID (managed by the special class below)
+    @EmbeddedId
+    private UserSnackRankingId id = new UserSnackRankingId();
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
+    @MapsId("snackId") // keeps the EmbeddedId updated
     @JoinColumn(name = "snack_id", referencedColumnName = "id")
     private Snack snack;
 
-    @Id
-    @Column(name = "user_id")
-    private Long userId;
-
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
+    @MapsId("userId") // keeps the EmbeddedId updated
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
@@ -60,7 +59,6 @@ public class UserSnackRanking {
         this.rank = rank;
     }
 
-
     public UserSnackRanking(Snack snack, User user) {
         this.snack = snack;
         this.user = user;
@@ -70,13 +68,12 @@ public class UserSnackRanking {
     //-------------------------------------------
     // Getters and Setters
     //
-
-    public Long getSnackId() {
-        return snackId;
+    public UserSnackRankingId getId() {
+        return id;
     }
 
-    public void setSnackId(Long snackId) {
-        this.snackId = snackId;
+    public void setId(UserSnackRankingId id) {
+        this.id = id;
     }
 
     public Snack getSnack() {
@@ -85,14 +82,6 @@ public class UserSnackRanking {
 
     public void setSnack(Snack snack) {
         this.snack = snack;
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
     }
 
     public User getUser() {
@@ -130,10 +119,48 @@ public class UserSnackRanking {
     //-------------------------------------------
     // Functions
     //
-
     @Override
     public String toString() {
-        return String.format("UserSnackRank(rank=%s, snack=%s, user=%s %s, created=%s, updated=%s", rank, snack.getName(), user.getFirstName(), user.getLastName(), createdAt, updatedAt);
+        return String.format("UserSnackRank(rank=%s, snack=%s, user=%s %s, created=%s, updated=%s)", rank, snack.getName(), user.getFirstName(), user.getLastName(), createdAt, updatedAt);
+    }
+
+
+    /**
+     * Special ID class to represent the composite ID for this table
+     */
+    @Embeddable
+    public static class UserSnackRankingId implements Serializable {
+        private Long userId;
+        private Long snackId;
+
+        //-------------------------------------------
+        // Constructors
+        //
+        public UserSnackRankingId() {}
+
+        public UserSnackRankingId(Long userId, Long snackId) {
+            this.userId = userId;
+            this.snackId = snackId;
+        }
+
+        //-------------------------------------------
+        // Getters and Setters
+        //
+        public Long getUserId() {
+            return userId;
+        }
+
+        public void setUserId(Long userId) {
+            this.userId = userId;
+        }
+
+        public Long getSnackId() {
+            return snackId;
+        }
+
+        public void setSnackId(Long snackId) {
+            this.snackId = snackId;
+        }
     }
 
 
