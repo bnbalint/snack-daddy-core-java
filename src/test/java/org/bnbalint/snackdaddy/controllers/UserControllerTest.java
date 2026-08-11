@@ -18,6 +18,7 @@ import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -322,7 +323,6 @@ public class UserControllerTest {
                 .andDo(print()); // print the response
     }
 
-
     @Test
     void test_getUserById_notFound() throws Exception {
         //--------------------------------------------------
@@ -357,6 +357,208 @@ public class UserControllerTest {
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isInternalServerError())
                 .andDo(print()); // print the response
+    }
+
+
+    //---------------------------------------------------------------
+    // updateUser
+    //
+    @Test
+    void test_updateUser_success() throws Exception {
+        //--------------------------------------------------
+        // SET VALUES
+        Team team = new Team(
+                "Mules",
+                Rink.BAIREL,
+                Level.D5,
+                "#b88907",
+                "#000000",
+                "#c42323",
+                ""
+        );
+        team.setId(1);
+        team.setCreatedAt(DATE);
+        team.setUpdatedAt(DATE);
+        Team[] teams = { team };
+
+        Ingredient ingredient = new Ingredient("Pecan");
+        ingredient.setId(1);
+        ingredient.setCreatedAt(DATE);
+        ingredient.setUpdatedAt(DATE);
+        Ingredient[] allergies = { ingredient };
+
+        // create the one to send in the request
+        User user = new User("Roger", "Hogwarts", "r.h@gmail.com", teams, allergies);
+        user.setId(1);
+        user.setCreatedAt(DATE);
+        user.setUpdatedAt(DATE);
+
+        //--------------------------------------------------
+        // CONFIGURE MOCKS
+        when(userRepo.save(any())).thenReturn(user);
+
+        //--------------------------------------------------
+        // EXECUTE & VERIFY RESULTS
+        mockMvc.perform(put("/users")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(user))
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andDo(result -> System.out.println(result.getResponse().getContentAsString())) // print the response
+                .andExpect(jsonPath("$.id").value(1))
+                .andExpect(jsonPath("$.first_name").value("Roger"))
+                .andExpect(jsonPath("$.last_name").value("Hogwarts"))
+                .andExpect(jsonPath("$.email").value("r.h@gmail.com"))
+                .andExpect(jsonPath("$.teams").isArray())
+                .andExpect(jsonPath("$.allergies").isArray())
+                .andExpect(jsonPath("$.created_at").value(DATE.atOffset(ZoneOffset.UTC).toString()))
+                .andExpect(jsonPath("$.updated_at").value(DATE.atOffset(ZoneOffset.UTC).toString()));
+    }
+
+    @Test
+    void test_updateUser_nullUser() throws Exception {
+        //--------------------------------------------------
+        // SET VALUES
+
+        // create the one to send in the request
+        User user = null;
+
+
+        //--------------------------------------------------
+        // EXECUTE & VERIFY RESULTS
+        mockMvc.perform(put("/users")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(user))
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest())
+                .andDo(result -> System.out.println(result.getResponse().getContentAsString())); // print the response
+    }
+
+    @Test
+    void test_updateUser_badUserId() throws Exception {
+        //--------------------------------------------------
+        // SET VALUES
+        Team team = new Team(
+                "Mules",
+                Rink.BAIREL,
+                Level.D5,
+                "#b88907",
+                "#000000",
+                "#c42323",
+                ""
+        );
+        team.setId(1);
+        team.setCreatedAt(DATE);
+        team.setUpdatedAt(DATE);
+        Team[] teams = { team };
+
+        Ingredient ingredient = new Ingredient("Pecan");
+        ingredient.setId(1);
+        ingredient.setCreatedAt(DATE);
+        ingredient.setUpdatedAt(DATE);
+        Ingredient[] allergies = { ingredient };
+
+        // create the one to send in the request (do NOT set an ID)
+        User user = new User("Roger", "Hogwarts", "r.h@gmail.com", teams, allergies);
+        user.setCreatedAt(DATE);
+        user.setUpdatedAt(DATE);
+
+        //--------------------------------------------------
+        // EXECUTE & VERIFY RESULTS
+        mockMvc.perform(put("/users")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(user))
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest())
+                .andDo(result -> System.out.println(result.getResponse().getContentAsString())); // print the response
+    }
+
+    @Test
+    void test_updateUser_conflict() throws Exception {
+        //--------------------------------------------------
+        // SET VALUES
+        Team team = new Team(
+                "Mules",
+                Rink.BAIREL,
+                Level.D5,
+                "#b88907",
+                "#000000",
+                "#c42323",
+                ""
+        );
+        team.setId(1);
+        team.setCreatedAt(DATE);
+        team.setUpdatedAt(DATE);
+        Team[] teams = { team };
+
+        Ingredient ingredient = new Ingredient("Pecan");
+        ingredient.setId(1);
+        ingredient.setCreatedAt(DATE);
+        ingredient.setUpdatedAt(DATE);
+        Ingredient[] allergies = { ingredient };
+
+        User user = new User("Roger", "Hogwarts", "r.h@gmail.com", teams, allergies);
+        user.setId(1);
+        user.setCreatedAt(DATE);
+        user.setUpdatedAt(DATE);
+        System.out.println("User = " + user);
+
+        //--------------------------------------------------
+        // CONFIGURE MOCKS
+        when(userRepo.save(any())).thenThrow(new OptimisticLockingFailureException("DB conflict"));
+
+        //--------------------------------------------------
+        // EXECUTE & VERIFY RESULTS
+        mockMvc.perform(put("/users")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(user))
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest())
+                .andDo(result -> System.out.println(result.getResponse().getContentAsString())); // print the response
+    }
+
+    @Test
+    void test_updateUser_error() throws Exception {
+        //--------------------------------------------------
+        // SET VALUES
+        Team team = new Team(
+                "Mules",
+                Rink.BAIREL,
+                Level.D5,
+                "#b88907",
+                "#000000",
+                "#c42323",
+                ""
+        );
+        team.setId(1);
+        team.setCreatedAt(DATE);
+        team.setUpdatedAt(DATE);
+        Team[] teams = { team };
+
+        Ingredient ingredient = new Ingredient("Pecan");
+        ingredient.setId(1);
+        ingredient.setCreatedAt(DATE);
+        ingredient.setUpdatedAt(DATE);
+        Ingredient[] allergies = { ingredient };
+
+        User user = new User("Roger", "Hogwarts", "r.h@gmail.com", teams, allergies);
+        user.setId(1);
+        user.setCreatedAt(DATE);
+        user.setUpdatedAt(DATE);
+        System.out.println("User = " + user);
+
+        //--------------------------------------------------
+        // CONFIGURE MOCKS
+        when(userRepo.save(any())).thenThrow(new IllegalArgumentException("DB error"));
+
+        //--------------------------------------------------
+        // EXECUTE & VERIFY RESULTS
+        mockMvc.perform(put("/users")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(user))
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isInternalServerError())
+                .andDo(result -> System.out.println(result.getResponse().getContentAsString())); // print the response
     }
 
 }

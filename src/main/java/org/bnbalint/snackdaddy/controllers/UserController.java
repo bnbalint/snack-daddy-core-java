@@ -121,4 +121,48 @@ public class UserController {
             return ResponseEntity.internalServerError().build();
         }
     }
+
+
+
+    /**
+     * Update a user
+     * @param user - the user to update
+     * @return
+     *  400 if the user is null
+     *  400 if the userId is 0
+     *  400 if there is a database conflict
+     *  500 for all other DB related errors
+     *  200 and the user when successful
+     */
+    @RequestMapping(
+            value = "/users",
+            method = RequestMethod.PUT,
+            consumes = JSON,
+            produces = JSON
+    )
+    public ResponseEntity<?> updateUser(@RequestBody User user) {
+        log.trace("updateUser - user = {}", user);
+
+        if (user == null) {
+            log.error("User must not be null");
+            return ResponseEntity.badRequest().build();
+        }
+
+        if (user.getId() == 0){
+            log.error("User must have a valid ID to be updated");
+            return ResponseEntity.badRequest().build();
+        }
+
+        try {
+            User savedUser = userRepo.save(user);
+            log.debug("updated user = {}", savedUser);
+            return new ResponseEntity<>(savedUser, HttpStatus.OK);
+        } catch (OptimisticLockingFailureException ex) {
+            log.error("Conflict error while saving user to the database", ex);
+            return ResponseEntity.badRequest().build();
+        } catch (Exception ex) {
+            log.error("Error while saving user to database", ex);
+            return ResponseEntity.internalServerError().build();
+        }
+    }
 }
