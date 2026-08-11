@@ -369,6 +369,141 @@ public class UserSnackRankingControllerTest {
     }
 
 
+    //---------------------------------------------------------------
+    // getRankingsByUserId
+    //
+
+    @Test
+    void test_getRankingsByUserId_success() throws Exception {
+        //--------------------------------------------------
+        // SET VALUES
+        long userId = 1L;
+        Team team = new Team(
+                "Mules",
+                Rink.BAIREL,
+                Level.D5,
+                "#b88907",
+                "#000000",
+                "#c42323",
+                ""
+        );
+        team.setId(1);
+        team.setCreatedAt(DATE);
+        team.setUpdatedAt(DATE);
+        Team[] teams = { team };
+
+        Ingredient ingredient = new Ingredient("Pecan");
+        ingredient.setId(1);
+        ingredient.setCreatedAt(DATE);
+        ingredient.setUpdatedAt(DATE);
+        Ingredient[] allergies = { ingredient };
+
+        User user = new User("Roger", "Hogwarts", "r.h@gmail.com", teams, allergies);
+        user.setId(userId);
+        user.setCreatedAt(DATE);
+        user.setUpdatedAt(DATE);
+        System.out.println("User = " + user);
+
+        Ingredient ingredient1 = makeIngredient("Rice Crispy Cereal", 4);
+        Ingredient ingredient2 = makeIngredient("Margarine", 5);
+        Ingredient ingredient3 = makeIngredient("Marshmallow", 6);
+        Ingredient ingredient4 = makeIngredient("Vanilla", 7);
+        Ingredient[] ingredients = { ingredient1, ingredient2, ingredient3, ingredient4 };
+        Snack snack = new Snack(
+                "Rice Crispie Treat",
+                true,
+                false,
+                2,
+                ingredients
+        );
+        snack.setId(1);
+        snack.setCreatedAt(DATE);
+        snack.setUpdatedAt(DATE);
+        System.out.println("Snack = " + snack);
+
+        UserSnackRanking ranking = new UserSnackRanking(snack, user, SnackRank.RANK_10);
+        ranking.setCreatedAt(DATE);
+        ranking.setUpdatedAt(DATE);
+        System.out.println("Ranking = " + ranking);
+
+        //--------------------------------------------------
+        // CONFIGURE MOCKS
+        when(userSnackRankingRepo.findAllByUserId(userId)).thenReturn(List.of(ranking));
+
+        //--------------------------------------------------
+        // EXECUTE & VERIFY RESULTS
+        mockMvc.perform(get("/users/"+ userId + "/snack-rankings")
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andDo(print()) // print the response
+                .andExpect(jsonPath("$.[0].rank").value("RANK_10"))
+                .andExpect(jsonPath("$.[0].created_at").value(DATE.atOffset(ZoneOffset.UTC).toString()))
+                .andExpect(jsonPath("$.[0].updated_at").value(DATE.atOffset(ZoneOffset.UTC).toString()))
+                .andExpect(jsonPath("$.[0].user.id").value(1))
+                .andExpect(jsonPath("$.[0].user.first_name").value("Roger"))
+                .andExpect(jsonPath("$.[0].user.last_name").value("Hogwarts"))
+                .andExpect(jsonPath("$.[0].user.email").value("r.h@gmail.com"))
+                .andExpect(jsonPath("$.[0].user.teams").isArray())
+                .andExpect(jsonPath("$.[0].user.allergies").isArray())
+                .andExpect(jsonPath("$.[0].user.created_at").value(DATE.atOffset(ZoneOffset.UTC).toString()))
+                .andExpect(jsonPath("$.[0].user.updated_at").value(DATE.atOffset(ZoneOffset.UTC).toString()))
+                .andExpect(jsonPath("$.[0].snack.id").value(1))
+                .andExpect(jsonPath("$.[0].snack.name").value("Rice Crispie Treat"))
+                .andExpect(jsonPath("$.[0].snack.sweet").value("true"))
+                .andExpect(jsonPath("$.[0].snack.savory").value("false"))
+                .andExpect(jsonPath("$.[0].snack.difficulty").value(2))
+                .andExpect(jsonPath("$.[0].snack.ingredients").isNotEmpty())
+                .andExpect(jsonPath("$.[0].snack.created_at").value(DATE.atOffset(ZoneOffset.UTC).toString()))
+                .andExpect(jsonPath("$.[0].snack.updated_at").value(DATE.atOffset(ZoneOffset.UTC).toString()));
+    }
+
+    @Test
+    void test_getRankingsByUserId_nullUserId() throws Exception {
+        //--------------------------------------------------
+        // SET VALUES
+        Long userId = null;
+
+        //--------------------------------------------------
+        // EXECUTE & VERIFY RESULTS
+        mockMvc.perform(get("/users/"+ userId + "/snack-rankings")
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest())
+                .andDo(print()); // print the response
+    }
+
+    @Test
+    void test_getRankingsByUserId_negativeUserId() throws Exception {
+        //--------------------------------------------------
+        // SET VALUES
+        long userId = -2L;
+
+        //--------------------------------------------------
+        // EXECUTE & VERIFY RESULTS
+        mockMvc.perform(get("/users/"+ userId + "/snack-rankings")
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest())
+                .andDo(print()); // print the response
+    }
+
+    @Test
+    void test_getRankingsByUserId_error() throws Exception {
+        //--------------------------------------------------
+        // SET VALUES
+        long userId = 1L;
+
+        //--------------------------------------------------
+        // CONFIGURE MOCKS
+        when(userSnackRankingRepo.findAllByUserId(userId)).thenThrow(new IllegalArgumentException("database error"));
+
+        //--------------------------------------------------
+        // EXECUTE & VERIFY RESULTS
+        mockMvc.perform(get("/users/"+ userId + "/snack-rankings")
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isInternalServerError())
+                .andDo(print()); // print the response
+    }
+
+
 
     /**
      * Helper function to make a new ingredient and set all fields
