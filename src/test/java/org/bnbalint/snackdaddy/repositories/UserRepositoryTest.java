@@ -5,8 +5,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
 public class UserRepositoryTest {
@@ -128,5 +128,58 @@ public class UserRepositoryTest {
         assertEquals(1, firstAllergies.length);
         var firstAllergy = firstAllergies[0];
         assertEquals("Pecan", firstAllergy.getName());
+    }
+
+    @Test
+    void test_findById_success() {
+
+        //--------------------------------------------------
+        // SET VALUES
+        Team[] teams = { };
+        Ingredient[] allergies = { };
+        User user = new User("Roger", "Hogwarts", "getUserById@gmail.com", teams, allergies);
+
+
+        //--------------------------------------------------
+        // CONFIGURE MOCKS
+        // Persist the data to the database
+        entityManager.persistAndFlush(user);
+        System.out.println("Saved user = " + user);
+
+        //--------------------------------------------------
+        // EXECUTE
+        var result = userRepo.findById(user.getId());
+
+        //--------------------------------------------------
+        // VERIFY RESULTS
+        var foundUser = result.orElse(null);
+
+        assertNotNull(foundUser);
+        assertEquals("Roger", foundUser.getFirstName());
+        assertEquals("Hogwarts", foundUser.getLastName());
+        assertEquals("getUserById@gmail.com", foundUser.getEmail());
+        assertEquals(0, foundUser.getTeams().length);
+        assertEquals(0, foundUser.getAllergies().length);
+    }
+
+    @Test
+    void test_findById_notFound() {
+
+        //--------------------------------------------------
+        // SET VALUES
+
+        //--------------------------------------------------
+        // CONFIGURE MOCKS
+
+
+        //--------------------------------------------------
+        // EXECUTE
+        var result = userRepo.findById(500L);
+
+        //--------------------------------------------------
+        // VERIFY RESULTS
+        var foundUser = result.orElse(null);
+
+        assertNull(foundUser);
     }
 }
