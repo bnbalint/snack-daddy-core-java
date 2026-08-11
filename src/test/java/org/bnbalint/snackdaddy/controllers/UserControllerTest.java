@@ -14,6 +14,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.time.Instant;
 import java.time.ZoneOffset;
 import java.util.List;
+import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
@@ -250,4 +251,112 @@ public class UserControllerTest {
                 .andExpect(status().isInternalServerError())
                 .andDo(result -> System.out.println(result.getResponse().getContentAsString())); // print the response
     }
+
+
+
+
+    //---------------------------------------------------------------
+    // getUserById
+    //
+
+    @Test
+    void test_getUserById_success() throws Exception {
+        //--------------------------------------------------
+        // SET VALUES
+        long userId = 1L;
+        Team[] teams = { };
+        Ingredient[] allergies = {  };
+
+        User user = new User("Roger", "Hogwarts", "r.h@gmail.com", teams, allergies);
+        user.setId(userId);
+        user.setCreatedAt(DATE);
+        user.setUpdatedAt(DATE);
+        System.out.println("User = " + user);
+
+        //--------------------------------------------------
+        // CONFIGURE MOCKS
+        when(userRepo.findById(userId)).thenReturn(Optional.of(user));
+
+        //--------------------------------------------------
+        // EXECUTE & VERIFY RESULTS
+        mockMvc.perform(get("/users/" + userId)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andDo(print()) // print the response
+                .andExpect(jsonPath("$.id").value(1))
+                .andExpect(jsonPath("$.first_name").value("Roger"))
+                .andExpect(jsonPath("$.last_name").value("Hogwarts"))
+                .andExpect(jsonPath("$.email").value("r.h@gmail.com"))
+                .andExpect(jsonPath("$.teams").isArray())
+                .andExpect(jsonPath("$.allergies").isArray())
+                .andExpect(jsonPath("$.created_at").value(DATE.atOffset(ZoneOffset.UTC).toString()))
+                .andExpect(jsonPath("$.updated_at").value(DATE.atOffset(ZoneOffset.UTC).toString()));
+    }
+
+    @Test
+    void test_getUserById_nullUserId() throws Exception {
+        //--------------------------------------------------
+        // SET VALUES
+        Long userId = null;
+
+
+        //--------------------------------------------------
+        // EXECUTE & VERIFY RESULTS
+        mockMvc.perform(get("/users/" + userId)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest())
+                .andDo(print()); // print the response
+    }
+
+    @Test
+    void test_getUserById_negativeUserId() throws Exception {
+        //--------------------------------------------------
+        // SET VALUES
+        long userId = -2L;
+
+        //--------------------------------------------------
+        // EXECUTE & VERIFY RESULTS
+        mockMvc.perform(get("/users/" + userId)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest())
+                .andDo(print()); // print the response
+    }
+
+
+    @Test
+    void test_getUserById_notFound() throws Exception {
+        //--------------------------------------------------
+        // SET VALUES
+        long userId = 1L;
+
+        //--------------------------------------------------
+        // CONFIGURE MOCKS
+        when(userRepo.findById(userId)).thenReturn(Optional.empty());
+
+        //--------------------------------------------------
+        // EXECUTE & VERIFY RESULTS
+        mockMvc.perform(get("/users/" + userId)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound())
+                .andDo(print()); // print the response
+    }
+
+    @Test
+    void test_getUserById_error() throws Exception {
+        //--------------------------------------------------
+        // SET VALUES
+        long userId = 1L;
+
+        //--------------------------------------------------
+        // CONFIGURE MOCKS
+        when(userRepo.findById(userId)).thenThrow(new IllegalArgumentException("database error"));
+
+        //--------------------------------------------------
+        // EXECUTE & VERIFY RESULTS
+        mockMvc.perform(get("/users/" + userId)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isInternalServerError())
+                .andDo(print()); // print the response
+    }
+
 }
