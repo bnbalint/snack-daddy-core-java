@@ -552,8 +552,7 @@
   - 415 → JSON body was unable to be parsed into the required Team format
 
 
-
-
+  
 ## Suggested Allergies
 ---
 
@@ -603,16 +602,10 @@
 
 
 
-
-
-
-
-
-
 ## Snack Log
 ---
 
-## GET all snack_log
+### GET all snack_log
 - USAGE
   - View on [View Snack Log](frontend.md#view-snack-log)
 - GET `/snack-log`
@@ -735,7 +728,7 @@
   ```
 
 
-## Add to snack_log
+### Add to snack_log
 - USAGE
   - Submit on [Log Snack Delivery](frontend.md#log-snack-delivery)
 - POST `/snack-log`
@@ -813,7 +806,7 @@
 ## Rinks
 ---
 
-## GET all rinks
+### GET all rinks
 - USAGE
   - Display on [Team Entry](./frontend.md#team-entry)
 - GET `/rinks`
@@ -828,7 +821,7 @@
 ## Levels
 ---
 
-## GET all rinks
+### GET all rinks
 - USAGE
   - Display on [Team Entry](frontend.md#team-entry)
 - GET `/levels`
@@ -923,6 +916,88 @@
       }
     ]
   ```
+
+### GET all snack rankings (one user)
+- USAGE:
+  - As a user, view snacks and their rankings on the drag-and-drop ranking page
+- GET  `/users/{userId}/snack-rankings`
+- Response
+  ```json
+    [
+      {
+        "snack_id": 1,
+        "snack": {
+          "id": 1,
+          "name": "Rice Crispie Treat",
+          "sweet": true,
+          "savory": false,
+          "difficulty": 2,
+          "recipe_url": "",
+          "ingredients": [
+            {
+              "id": 4,
+              "name": "Rice Crispy Cereal",
+              "created_at": "2026-07-01T00:00:01Z",
+              "updated_at": "2026-07-01T00:00:01Z"
+            },
+            {
+              "id": 5,
+              "name": "Margarine",
+              "created_at": "2026-07-01T00:00:01Z",
+              "updated_at": "2026-07-01T00:00:01Z"
+            },
+            {
+              "id": 6,
+              "name": "Marshmallow",
+              "created_at": "2026-07-01T00:00:01Z",
+              "updated_at": "2026-07-01T00:00:01Z"
+            },
+            {
+              "id": 7,
+              "name": "Vanilla",
+              "created_at": "2026-07-01T00:00:01Z",
+              "updated_at": "2026-07-01T00:00:01Z"
+            }
+          ],
+          "created_at": "2026-07-01T00:00:01Z",
+          "updated_at": "2026-07-01T00:00:01Z"
+      },
+        "user_id": 1,
+        "user": {
+            "first_name": "Roger",
+            "last_name": "Hogwarts",
+            "email": "r.h@gmail.com",
+            "teams": [
+              {
+                "id": 1,
+                "name": "Mules",
+                "Rink": "BAIREL",
+                "Level": "D5",
+                "primary_color": "#b88907",
+                "secondary_color": "#000000",
+                "ternary_color": "#c42323",
+                "logo_url": "",
+                "created_at": "2026-07-01T00:00:01Z",
+                "updated_at": "2026-07-01T00:00:01Z"
+                }
+            ],
+            "allergies": [
+              {
+                "id": 1,
+                "name": "Pecan",
+                "created_at": "2026-07-01T00:00:01Z",
+                "updated_at": "2026-07-01T00:00:01Z"
+              }
+            ]
+          },
+        "rank": "RANK_10",
+        "created_at": "2026-07-01T00:00:01Z",
+        "updated_at": "2026-07-01T00:00:01Z"
+      }
+    ]
+  ```
+
+
 
 
 ### Add to snack ranking
