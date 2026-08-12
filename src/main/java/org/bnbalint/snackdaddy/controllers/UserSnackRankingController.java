@@ -117,4 +117,41 @@ public class UserSnackRankingController {
             return ResponseEntity.internalServerError().build();
         }
     }
+
+
+    /**
+     * Update a list of UserSnackRankings
+     * @param rankings - a list of UserSnackRankings to update
+     * @return
+     * 400 if rankings body is null
+     * 400 if there is a database conflict error
+     * 500 for all other DB related errors
+     * 200 and the list of rankings when successful
+     */
+    @RequestMapping(
+            value = "/snack-rankings",
+            method = RequestMethod.PUT,
+            consumes = JSON,
+            produces = JSON
+    )
+    public ResponseEntity<?> updateUserSnackRankings(@RequestBody List<UserSnackRanking> rankings) {
+        log.trace("updateUserSnackRankings - rankings = {}", rankings);
+
+        if (rankings == null) {
+            log.error("Rankings must not be null");
+            return ResponseEntity.badRequest().body("Request body must not be null");
+        }
+
+        try {
+            List<UserSnackRanking> savedRankings = userSnackRankingRepo.saveAllAndFlush(rankings);
+            log.debug("saved rankings = {}", savedRankings);
+            return new ResponseEntity<>(savedRankings, HttpStatus.OK);
+        } catch (OptimisticLockingFailureException ex) {
+            log.error("Conflict error while saving ranking to the database", ex);
+            return ResponseEntity.badRequest().build();
+        } catch (Exception ex) {
+            log.error("Error while saving ranking to database", ex);
+            return ResponseEntity.internalServerError().build();
+        }
+    }
 }

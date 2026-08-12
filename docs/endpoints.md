@@ -998,8 +998,6 @@
   ```
 
 
-
-
 ### Add to snack ranking
 - USAGE:
   - Create a new snack ranking
@@ -1155,6 +1153,163 @@
   - 400 → conflict because the user/snack entry already exists (would need to use a PUT to update this entry)
 
 
+
+### Update UserSnackRankings
+- USAGE:
+  - Save on the drag-and-drop page for updating Snack Rankings
+- PUT `/snack-rankings`
+- Body
+   ```json
+      [
+        {"snack_id": 1,
+        "snack": {
+          "id": 1,
+          "name": "Rice Crispie Treat",
+          "sweet": true,
+          "savory": false,
+          "difficulty": 2,
+          "recipe_url": "",
+          "ingredients": [
+            {
+              "id": 4,
+              "name": "Rice Crispy Cereal",
+              "created_at": "2026-07-01T00:00:01Z",
+              "updated_at": "2026-07-01T00:00:01Z"
+            },
+            {
+              "id": 5,
+              "name": "Margarine",
+              "created_at": "2026-07-01T00:00:01Z",
+              "updated_at": "2026-07-01T00:00:01Z"
+            },
+            {
+              "id": 6,
+              "name": "Marshmallow",
+              "created_at": "2026-07-01T00:00:01Z",
+              "updated_at": "2026-07-01T00:00:01Z"
+            },
+            {
+              "id": 7,
+              "name": "Vanilla",
+              "created_at": "2026-07-01T00:00:01Z",
+              "updated_at": "2026-07-01T00:00:01Z"
+            }
+          ],
+          "created_at": "2026-07-01T00:00:01Z",
+          "updated_at": "2026-07-01T00:00:01Z"
+      },
+        "user_id": 1,
+        "user": {
+            "first_name": "Roger",
+            "last_name": "Hogwarts",
+            "email": "r.h@gmail.com",
+            "teams": [
+              {
+                "id": 1,
+                "name": "Mules",
+                "Rink": "BAIREL",
+                "Level": "D5",
+                "primary_color": "#b88907",
+                "secondary_color": "#000000",
+                "ternary_color": "#c42323",
+                "logo_url": "",
+                "created_at": "2026-07-01T00:00:01Z",
+                "updated_at": "2026-07-01T00:00:01Z"
+                }
+            ],
+            "allergies": [
+              {
+                "id": 1,
+                "name": "Pecan",
+                "created_at": "2026-07-01T00:00:01Z",
+                "updated_at": "2026-07-01T00:00:01Z"
+              }
+            ]
+          },
+        "rank": "RANK_10",
+        "created_at": "2026-07-01T00:00:01Z",
+        "updated_at": "2026-07-01T00:00:01Z"
+      }
+      ]
+   ```
+- Response
+  ```json
+      [
+        {
+        "snack_id": 1,
+        "snack": {
+          "id": 1,
+          "name": "Rice Crispie Treat",
+          "sweet": true,
+          "savory": false,
+          "difficulty": 2,
+          "recipe_url": "",
+          "ingredients": [
+            {
+              "id": 4,
+              "name": "Rice Crispy Cereal",
+              "created_at": "2026-07-01T00:00:01Z",
+              "updated_at": "2026-07-01T00:00:01Z"
+            },
+            {
+              "id": 5,
+              "name": "Margarine",
+              "created_at": "2026-07-01T00:00:01Z",
+              "updated_at": "2026-07-01T00:00:01Z"
+            },
+            {
+              "id": 6,
+              "name": "Marshmallow",
+              "created_at": "2026-07-01T00:00:01Z",
+              "updated_at": "2026-07-01T00:00:01Z"
+            },
+            {
+              "id": 7,
+              "name": "Vanilla",
+              "created_at": "2026-07-01T00:00:01Z",
+              "updated_at": "2026-07-01T00:00:01Z"
+            }
+          ],
+          "created_at": "2026-07-01T00:00:01Z",
+          "updated_at": "2026-07-01T00:00:01Z"
+      },
+        "user_id": 1,
+        "user": {
+            "first_name": "Roger",
+            "last_name": "Hogwarts",
+            "email": "r.h@gmail.com",
+            "teams": [
+              {
+                "id": 1,
+                "name": "Mules",
+                "Rink": "BAIREL",
+                "Level": "D5",
+                "primary_color": "#b88907",
+                "secondary_color": "#000000",
+                "ternary_color": "#c42323",
+                "logo_url": "",
+                "created_at": "2026-07-01T00:00:01Z",
+                "updated_at": "2026-07-01T00:00:01Z"
+                }
+            ],
+            "allergies": [
+              {
+                "id": 1,
+                "name": "Pecan",
+                "created_at": "2026-07-01T00:00:01Z",
+                "updated_at": "2026-07-01T00:00:01Z"
+              }
+            ]
+          },
+        "rank": "RANK_10",
+        "created_at": "2026-07-01T00:00:01Z",
+        "updated_at": "2026-07-01T00:00:01Z"
+      }
+    ]
+  ```
+- Possible Errors
+  - 415 -> JSON body was unable to be parsed into the required UserSnackRanking format
+  - 400 -> conflict during the database transaction
 
 
 

@@ -17,8 +17,7 @@ import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -501,6 +500,248 @@ public class UserSnackRankingControllerTest {
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isInternalServerError())
                 .andDo(print()); // print the response
+    }
+
+
+    //---------------------------------------------------------------
+    // updateUserSnackRankings
+    //
+    @Test
+    void test_updateUserSnackRankings_success() throws Exception {
+        //--------------------------------------------------
+        // SET VALUES
+        Team team = new Team(
+                "Mules",
+                Rink.BAIREL,
+                Level.D5,
+                "#b88907",
+                "#000000",
+                "#c42323",
+                ""
+        );
+        team.setId(1);
+        team.setCreatedAt(DATE);
+        team.setUpdatedAt(DATE);
+        Team[] teams = { team };
+
+        Ingredient ingredient = new Ingredient("Pecan");
+        ingredient.setId(1);
+        ingredient.setCreatedAt(DATE);
+        ingredient.setUpdatedAt(DATE);
+        Ingredient[] allergies = { ingredient };
+
+        User user = new User("Roger", "Hogwarts", "r.h@gmail.com", teams, allergies);
+        user.setId(1);
+        user.setCreatedAt(DATE);
+        user.setUpdatedAt(DATE);
+        System.out.println("User = " + user);
+
+        Ingredient ingredient1 = makeIngredient("Rice Crispy Cereal", 4);
+        Ingredient ingredient2 = makeIngredient("Margarine", 5);
+        Ingredient ingredient3 = makeIngredient("Marshmallow", 6);
+        Ingredient ingredient4 = makeIngredient("Vanilla", 7);
+        Ingredient[] ingredients = { ingredient1, ingredient2, ingredient3, ingredient4 };
+        Snack snack = new Snack(
+                "Rice Crispie Treat",
+                true,
+                false,
+                2,
+                ingredients
+        );
+        snack.setId(1);
+        snack.setCreatedAt(DATE);
+        snack.setUpdatedAt(DATE);
+        System.out.println("Snack = " + snack);
+
+        // create the one to send in the request
+        UserSnackRanking ranking = new UserSnackRanking(snack, user, SnackRank.RANK_10);
+        ranking.setCreatedAt(DATE);
+        ranking.setUpdatedAt(DATE);
+        System.out.println("Ranking = " + ranking);
+
+        // create the one to return from the mock database
+        UserSnackRanking savedRanking = new UserSnackRanking(snack, user, SnackRank.RANK_10);
+        savedRanking.setCreatedAt(DATE);
+        savedRanking.setUpdatedAt(DATE);
+
+        //--------------------------------------------------
+        // CONFIGURE MOCKS
+        when(userSnackRankingRepo.saveAllAndFlush(any())).thenReturn(List.of(savedRanking));
+
+        //--------------------------------------------------
+        // EXECUTE & VERIFY RESULTS
+        mockMvc.perform(put("/snack-rankings")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(List.of(ranking)))
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andDo(result -> System.out.println(result.getResponse().getContentAsString())) // print the response
+                .andExpect(jsonPath("$.[0].rank").value("RANK_10"))
+                .andExpect(jsonPath("$.[0].created_at").value(DATE.atOffset(ZoneOffset.UTC).toString()))
+                .andExpect(jsonPath("$.[0].updated_at").value(DATE.atOffset(ZoneOffset.UTC).toString()))
+                .andExpect(jsonPath("$.[0].user.id").value(1))
+                .andExpect(jsonPath("$.[0].user.first_name").value("Roger"))
+                .andExpect(jsonPath("$.[0].user.last_name").value("Hogwarts"))
+                .andExpect(jsonPath("$.[0].user.email").value("r.h@gmail.com"))
+                .andExpect(jsonPath("$.[0].user.teams").isArray())
+                .andExpect(jsonPath("$.[0].user.allergies").isArray())
+                .andExpect(jsonPath("$.[0].user.created_at").value(DATE.atOffset(ZoneOffset.UTC).toString()))
+                .andExpect(jsonPath("$.[0].user.updated_at").value(DATE.atOffset(ZoneOffset.UTC).toString()))
+                .andExpect(jsonPath("$.[0].snack.id").value(1))
+                .andExpect(jsonPath("$.[0].snack.name").value("Rice Crispie Treat"))
+                .andExpect(jsonPath("$.[0].snack.sweet").value("true"))
+                .andExpect(jsonPath("$.[0].snack.savory").value("false"))
+                .andExpect(jsonPath("$.[0].snack.difficulty").value(2))
+                .andExpect(jsonPath("$.[0].snack.ingredients").isNotEmpty())
+                .andExpect(jsonPath("$.[0].snack.created_at").value(DATE.atOffset(ZoneOffset.UTC).toString()))
+                .andExpect(jsonPath("$.[0].snack.updated_at").value(DATE.atOffset(ZoneOffset.UTC).toString()));
+    }
+
+    @Test
+    void test_updateUserSnackRankings_nullBody() throws Exception {
+
+        //--------------------------------------------------
+        // EXECUTE & VERIFY RESULTS
+        mockMvc.perform(put("/snack-rankings")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(null)) // this is the test
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest())
+                .andDo(result -> System.out.println(result.getResponse().getContentAsString())); // print the response
+    }
+
+    @Test
+    void test_updateUserSnackRankings_conflict() throws Exception {
+        //--------------------------------------------------
+        // SET VALUES
+        Team team = new Team(
+                "Mules",
+                Rink.BAIREL,
+                Level.D5,
+                "#b88907",
+                "#000000",
+                "#c42323",
+                ""
+        );
+        team.setId(1);
+        team.setCreatedAt(DATE);
+        team.setUpdatedAt(DATE);
+        Team[] teams = { team };
+
+        Ingredient ingredient = new Ingredient("Pecan");
+        ingredient.setId(1);
+        ingredient.setCreatedAt(DATE);
+        ingredient.setUpdatedAt(DATE);
+        Ingredient[] allergies = { ingredient };
+
+        User user = new User("Roger", "Hogwarts", "r.h@gmail.com", teams, allergies);
+        user.setId(1);
+        user.setCreatedAt(DATE);
+        user.setUpdatedAt(DATE);
+        System.out.println("User = " + user);
+
+        Ingredient ingredient1 = makeIngredient("Rice Crispy Cereal", 4);
+        Ingredient ingredient2 = makeIngredient("Margarine", 5);
+        Ingredient ingredient3 = makeIngredient("Marshmallow", 6);
+        Ingredient ingredient4 = makeIngredient("Vanilla", 7);
+        Ingredient[] ingredients = { ingredient1, ingredient2, ingredient3, ingredient4 };
+        Snack snack = new Snack(
+                "Rice Crispie Treat",
+                true,
+                false,
+                2,
+                ingredients
+        );
+        snack.setId(1);
+        snack.setCreatedAt(DATE);
+        snack.setUpdatedAt(DATE);
+        System.out.println("Snack = " + snack);
+
+        // create the one to send in the request
+        UserSnackRanking ranking = new UserSnackRanking(snack, user, SnackRank.RANK_10);
+        ranking.setCreatedAt(DATE);
+        ranking.setUpdatedAt(DATE);
+        System.out.println("Ranking = " + ranking);
+
+        //--------------------------------------------------
+        // CONFIGURE MOCKS
+        when(userSnackRankingRepo.saveAllAndFlush(any())).thenThrow(new OptimisticLockingFailureException("conflict"));
+
+        //--------------------------------------------------
+        // EXECUTE & VERIFY RESULTS
+        mockMvc.perform(put("/snack-rankings")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(List.of(ranking)))
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest())
+                .andDo(result -> System.out.println(result.getResponse().getContentAsString())); // print the response
+    }
+
+    @Test
+    void test_updateUserSnackRankings_error() throws Exception {
+        //--------------------------------------------------
+        // SET VALUES
+        Team team = new Team(
+                "Mules",
+                Rink.BAIREL,
+                Level.D5,
+                "#b88907",
+                "#000000",
+                "#c42323",
+                ""
+        );
+        team.setId(1);
+        team.setCreatedAt(DATE);
+        team.setUpdatedAt(DATE);
+        Team[] teams = { team };
+
+        Ingredient ingredient = new Ingredient("Pecan");
+        ingredient.setId(1);
+        ingredient.setCreatedAt(DATE);
+        ingredient.setUpdatedAt(DATE);
+        Ingredient[] allergies = { ingredient };
+
+        User user = new User("Roger", "Hogwarts", "r.h@gmail.com", teams, allergies);
+        user.setId(1);
+        user.setCreatedAt(DATE);
+        user.setUpdatedAt(DATE);
+        System.out.println("User = " + user);
+
+        Ingredient ingredient1 = makeIngredient("Rice Crispy Cereal", 4);
+        Ingredient ingredient2 = makeIngredient("Margarine", 5);
+        Ingredient ingredient3 = makeIngredient("Marshmallow", 6);
+        Ingredient ingredient4 = makeIngredient("Vanilla", 7);
+        Ingredient[] ingredients = { ingredient1, ingredient2, ingredient3, ingredient4 };
+        Snack snack = new Snack(
+                "Rice Crispie Treat",
+                true,
+                false,
+                2,
+                ingredients
+        );
+        snack.setId(1);
+        snack.setCreatedAt(DATE);
+        snack.setUpdatedAt(DATE);
+        System.out.println("Snack = " + snack);
+
+        // create the one to send in the request
+        UserSnackRanking ranking = new UserSnackRanking(snack, user, SnackRank.RANK_10);
+        ranking.setCreatedAt(DATE);
+        ranking.setUpdatedAt(DATE);
+        System.out.println("Ranking = " + ranking);
+
+        //--------------------------------------------------
+        // CONFIGURE MOCKS
+        when(userSnackRankingRepo.saveAllAndFlush(any())).thenThrow(new IllegalArgumentException("error"));
+
+        //--------------------------------------------------
+        // EXECUTE & VERIFY RESULTS
+        mockMvc.perform(put("/snack-rankings")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(List.of(ranking)))
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isInternalServerError())
+                .andDo(result -> System.out.println(result.getResponse().getContentAsString())); // print the response
     }
 
 
