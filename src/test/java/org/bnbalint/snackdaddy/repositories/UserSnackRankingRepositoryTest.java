@@ -5,6 +5,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -138,5 +141,60 @@ public class UserSnackRankingRepositoryTest {
         assertEquals(true, foundSnack.getSweet());
         assertEquals(false, foundSnack.getSavory());
         assertEquals(2, foundSnack.getDifficulty());
+    }
+
+
+    @Test
+    void test_saveAllAndFlush() {
+
+        //--------------------------------------------------
+        // SET VALUES
+        User user = new User("Roger", "Hogwarts", "SaveAllRankingTest@gmail.com");
+        Ingredient[] ingredients = { };
+        Snack snack1 = new Snack("Ranking Test Snack1", true, false, 2, ingredients);
+        Snack snack2 = new Snack("Ranking Test Snack2", true, false, 2, ingredients);
+
+        UserSnackRanking ranking1 = new UserSnackRanking(snack1, user, SnackRank.RANK_1);
+        UserSnackRanking ranking2 = new UserSnackRanking(snack2, user, SnackRank.RANK_2);
+
+
+
+        //--------------------------------------------------
+        // EXECUTE
+        var savedRankings = userSnackRankingRepo.saveAllAndFlush(List.of(ranking1, ranking2));
+        System.out.println("Saved rankings = " + savedRankings);
+
+        //--------------------------------------------------
+        // VERIFY RESULTS
+        assertEquals(2, savedRankings.size());
+
+        var firstSaved = savedRankings.get(0);
+        assertEquals(SnackRank.RANK_1, firstSaved.getRank());
+        assertNotNull(firstSaved.getCreatedAt());
+        assertNotNull(firstSaved.getUpdatedAt());
+
+        assertEquals("Roger", firstSaved.getUser().getFirstName());
+        assertEquals("Hogwarts", firstSaved.getUser().getLastName());
+        assertEquals("SaveAllRankingTest@gmail.com", firstSaved.getUser().getEmail());
+
+        assertEquals("Ranking Test Snack1", firstSaved.getSnack().getName());
+        assertEquals(true, firstSaved.getSnack().getSweet());
+        assertEquals(false, firstSaved.getSnack().getSavory());
+        assertEquals(2, firstSaved.getSnack().getDifficulty());
+
+
+        var secondSaved = savedRankings.get(1);
+        assertEquals(SnackRank.RANK_2, secondSaved.getRank());
+        assertNotNull(secondSaved.getCreatedAt());
+        assertNotNull(secondSaved.getUpdatedAt());
+
+        assertEquals("Roger", secondSaved.getUser().getFirstName());
+        assertEquals("Hogwarts", secondSaved.getUser().getLastName());
+        assertEquals("SaveAllRankingTest@gmail.com", secondSaved.getUser().getEmail());
+
+        assertEquals("Ranking Test Snack2", secondSaved.getSnack().getName());
+        assertEquals(true, secondSaved.getSnack().getSweet());
+        assertEquals(false, secondSaved.getSnack().getSavory());
+        assertEquals(2, secondSaved.getSnack().getDifficulty());
     }
 }
