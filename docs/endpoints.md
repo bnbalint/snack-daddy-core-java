@@ -40,7 +40,7 @@
        "secondary_color": "#000000",
        "ternary_color": "#c42323",
        "logo_url": ""
-       }
+     }
    ```
 - Response
   ```json
@@ -55,7 +55,7 @@
       "logo_url": "",
       "created_at": "2026-07-01T00:00:01Z",
       "updated_at": "2026-07-01T00:00:01Z"
-      }
+    }
   ```
 - Possible Errors
   - 415 → JSON body was unable to be parsed into the required Team format
@@ -112,7 +112,7 @@
   ```
 - Possible Errors
   - 415 → JSON body was unable to be parsed into the required Ingredient format
-  - 400 → conflict because the ingredient already exists
+  - 400 → conflict because the ingredient already exists (name must be unique)
 
 
 
@@ -172,7 +172,7 @@
 
 ### GET user by id
 - USAGE:
-  - User editing page
+  - User-facing page for editing user details
 - GET  `/users/{userId}`
 - Response
   ```json
@@ -208,9 +208,9 @@
       }
   ```
 - Possible Errors
-  - 400 -> userId is null (Java) or unable to be converted to an integer (Go)
-  - 400 -> userId is less than or equal to 0
-  - 404 -> user was not found
+  - 400 → userId is null (Java) or unable to be converted to an integer (Go)
+  - 400 → userId is less than or equal to 0
+  - 404 → user was not found
   - 500 -> other error
 
 ### Add to users
@@ -284,6 +284,7 @@
   - 415 → JSON body was unable to be parsed into the required User format
   - 400 → conflict because the user already exists
 
+
 ### Update user
 - USAGE:
   - Update a user (id and email cannot be modified)
@@ -353,7 +354,7 @@
   ```
 - Possible Errors
   - 415 → JSON body was unable to be parsed into the required User format
-  - 400 -> database conflict
+  - 400 → database conflict
 
 
 ## Snacks
@@ -467,7 +468,7 @@
       ],
       "created_at": "2026-07-01T00:00:01Z",
       "updated_at": "2026-07-01T00:00:01Z"
-      }
+    }
   ```
 - Possible Errors
   - 415 → JSON body was unable to be parsed into the required Snack format
@@ -478,7 +479,7 @@
 - USAGE
   - Submit after modifying difficulty on [View / Modify Snack Difficulty](frontend.md#view--modify-snack-difficulty)
 - PUT `/snacks`
-- Body
+- Body = list of Snacks
    ```json
      [
        {
@@ -513,7 +514,7 @@
        }
      ]
    ```
-- Response
+- Response = list of Snacks
   ```json
     [
       {
@@ -558,7 +559,7 @@
 
 ### GET all suggested_allergies
 - USAGE
-  - TODO - admin usage
+  - Admin page to [View Suggested Allergies](./frontend.md#view-suggested-allergies)
 - GET  `/suggested-allergies`
 - Response
    ```json
@@ -607,9 +608,9 @@
 
 ### GET all snack_log
 - USAGE
-  - View on [View Snack Log](frontend.md#view-snack-log)
+  - View on [View Snack Log](frontend.md#view-snack-log) Admin page
 - GET `/snack-log`
-- Response
+- Response = list of SnackLog entries
   ```json
    [
     {
@@ -800,7 +801,10 @@
     }
   ```
 - Possible Errors
-  - 415 → JSON body was unable to be parsed into the required Team format
+  - 415 → JSON body was unable to be parsed into the required SnackLog format
+
+
+
 
 
 ## Rinks
@@ -821,7 +825,7 @@
 ## Levels
 ---
 
-### GET all rinks
+### GET all levels
 - USAGE
   - Display on [Team Entry](frontend.md#team-entry)
 - GET `/levels`
@@ -996,7 +1000,6 @@
       }
     ]
   ```
-
 
 ### Add to snack ranking
 - USAGE:
