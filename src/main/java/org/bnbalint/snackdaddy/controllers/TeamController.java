@@ -59,7 +59,12 @@ public class TeamController {
     /**
      * Add a new team to the database
      * @param team - the team to add
-     * @return the added team
+     * @return
+     * 400 if the request body is null
+     * 400 if the request body already has an ID
+     * 400 if there is a database conflict
+     * 500 for all other DB related errors
+     * 201 and the team when successful
      */
     @RequestMapping(
             value = "/teams",
@@ -67,8 +72,19 @@ public class TeamController {
             consumes = JSON,
             produces = JSON
     )
-    public ResponseEntity<Team> addTeam(@RequestBody Team team) {
+    public ResponseEntity<?> addTeam(@RequestBody Team team) {
         log.trace("addTeam - team = {}", team);
+
+        // check incoming parameter for validity
+        if (team == null){
+            log.error("Request body (team) must not be null");
+            return ResponseEntity.badRequest().body("Request body (team) must not be null");
+        }
+
+        if (team.getId() != null){
+            log.error("Request body (team) must not already have an id");
+            return ResponseEntity.badRequest().body("Request body (team) must not already have an id");
+        }
 
         try {
             Team savedTeam = teamRepo.save(team);
@@ -79,6 +95,60 @@ public class TeamController {
             return ResponseEntity.badRequest().build();
         } catch (Exception ex) {
             log.error("Error while saving team to database", ex);
+            return ResponseEntity.internalServerError().build();
+        }
+    }
+
+
+    /**
+     * Update a team
+     * @param team - the team to update
+     * @return
+     * 400 if the request body is null
+     * 400 if the request body does not have a valid id
+     * 400 if the team does not already exist in the database
+     * 400 if there is a database conflict
+     * 500 for all other DB related errors
+     * 200 and the team when successful
+     */
+    @RequestMapping(
+            value = "/teams",
+            method = RequestMethod.PUT,
+            consumes = JSON,
+            produces = JSON
+    )
+    public ResponseEntity<?> updateTeam(@RequestBody Team team) {
+        log.trace("updateTeam - team = {}", team);
+
+        // check incoming parameter for validity
+        if (team == null){
+            log.error("Request body (team) must not be null");
+            return ResponseEntity.badRequest().body("Request body (team) must not be null");
+        }
+
+        if (team.getId() == null){
+            log.error("Request body (team) must have a valid id");
+            return ResponseEntity.badRequest().body("Request body (team) must have a valid id");
+        }
+
+        // get the existingTeam, if it exists
+        var existingTeam = teamRepo.findById(team.getId()).orElse(null);
+
+        // team must already exist for an update to be made
+        if (existingTeam == null){
+            log.error("Team does not already exist - cannot update");
+            return ResponseEntity.badRequest().body("Team does not already exist - cannot update");
+        }
+
+        try {
+            Team updatedTeam = teamRepo.save(team);
+            log.debug("updated team = {}", updatedTeam);
+            return new ResponseEntity<>(updatedTeam, HttpStatus.OK);
+        } catch (OptimisticLockingFailureException ex) {
+            log.error("Conflict error while updating team in the database", ex);
+            return ResponseEntity.badRequest().build();
+        } catch (Exception ex) {
+            log.error("Error while updating team in the database", ex);
             return ResponseEntity.internalServerError().build();
         }
     }

@@ -25,7 +25,7 @@ public class SuggestedAllergyTest {
         //--------------------------------------------------
         // SET VALUES
         SuggestedAllergy suggestion = new SuggestedAllergy("Pine nut");
-        suggestion.setId(1);
+        suggestion.setId(1L);
         suggestion.setCreatedAt(DATE);
         suggestion.setUpdatedAt(DATE);
         System.out.println("SuggestedAllergy = " + suggestion);

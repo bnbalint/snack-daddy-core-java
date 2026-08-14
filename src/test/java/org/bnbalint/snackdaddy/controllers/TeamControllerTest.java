@@ -16,11 +16,11 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.time.Instant;
 import java.time.ZoneOffset;
 import java.util.List;
+import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -58,7 +58,7 @@ public class TeamControllerTest {
                 "#c42323",
                 "logo.com"
         );
-        team.setId(1);
+        team.setId(1L);
         team.setCreatedAt(DATE);
         team.setUpdatedAt(DATE);
         System.out.println("Team = " + team);
@@ -132,7 +132,7 @@ public class TeamControllerTest {
                 "#c42323",
                 "logo.com"
         );
-        savedTeam.setId(1);
+        savedTeam.setId(1L);
         savedTeam.setCreatedAt(DATE);
         savedTeam.setUpdatedAt(DATE);
 
@@ -158,6 +158,49 @@ public class TeamControllerTest {
                 .andExpect(jsonPath(".logo_url").value("logo.com"))
                 .andExpect(jsonPath("$.created_at").value(DATE.atOffset(ZoneOffset.UTC).toString()))
                 .andExpect(jsonPath("$.updated_at").value(DATE.atOffset(ZoneOffset.UTC).toString()));
+    }
+
+    @Test
+    void test_addTeam_nullBody() throws Exception {
+
+        //--------------------------------------------------
+        // EXECUTE & VERIFY RESULTS
+        mockMvc.perform(post("/teams")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(null)) // this is the test
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest())
+                .andDo(result -> System.out.println(result.getResponse().getContentAsString())); // print the response
+    }
+
+    @Test
+    void test_addTeam_existingId() throws Exception {
+        //--------------------------------------------------
+        // SET VALUES
+
+        // create the one to send in the request
+        Team team = new Team(
+                "Mules",
+                Rink.BAIREL,
+                Level.D5,
+                "#b88907",
+                "#000000",
+                "#c42323",
+                "logo.com"
+        );
+        team.setId(1L);
+        team.setCreatedAt(DATE);
+        team.setUpdatedAt(DATE);
+
+
+        //--------------------------------------------------
+        // EXECUTE & VERIFY RESULTS
+        mockMvc.perform(post("/teams")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(team))
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest())
+                .andDo(result -> System.out.println(result.getResponse().getContentAsString())); // print the response
     }
 
     @Test
@@ -209,6 +252,207 @@ public class TeamControllerTest {
         //--------------------------------------------------
         // EXECUTE & VERIFY RESULTS
         mockMvc.perform(post("/teams")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(team))
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isInternalServerError())
+                .andDo(result -> System.out.println(result.getResponse().getContentAsString())); // print the response
+    }
+
+
+    //---------------------------------------------------------------
+    // updateTeam
+    //
+    @Test
+    void test_updateTeam_success() throws Exception {
+        //--------------------------------------------------
+        // SET VALUES
+
+        // create the one to send in the request
+        Team team = new Team(
+                "Mules",
+                Rink.BAIREL,
+                Level.D5,
+                "#b88907",
+                "#000000",
+                "#c42323",
+                "logo.com"
+        );
+        team.setId(1L);
+        team.setCreatedAt(DATE);
+        team.setUpdatedAt(DATE);
+
+        // create the one to return from the mock database
+        Team savedTeam = new Team(
+                "Mules",
+                Rink.BAIREL,
+                Level.D5,
+                "#b88907",
+                "#000000",
+                "#c42323",
+                "logo.com"
+        );
+        savedTeam.setId(1L);
+        savedTeam.setCreatedAt(DATE);
+        savedTeam.setUpdatedAt(DATE);
+
+        //--------------------------------------------------
+        // CONFIGURE MOCKS
+        when(teamRepo.findById(1L)).thenReturn(Optional.of(team));
+        when(teamRepo.save(any())).thenReturn(savedTeam);
+
+        //--------------------------------------------------
+        // EXECUTE & VERIFY RESULTS
+        mockMvc.perform(put("/teams")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(team))
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andDo(result -> System.out.println(result.getResponse().getContentAsString())) // print the response
+                .andExpect(jsonPath("$.id").value(1))
+                .andExpect(jsonPath("$.name").value("Mules"))
+                .andExpect(jsonPath("$.rink").value("BAIREL"))
+                .andExpect(jsonPath("$.level").value("D5"))
+                .andExpect(jsonPath("$.primary_color").value("#b88907"))
+                .andExpect(jsonPath("$.secondary_color").value("#000000"))
+                .andExpect(jsonPath("$.ternary_color").value("#c42323"))
+                .andExpect(jsonPath(".logo_url").value("logo.com"))
+                .andExpect(jsonPath("$.created_at").value(DATE.atOffset(ZoneOffset.UTC).toString()))
+                .andExpect(jsonPath("$.updated_at").value(DATE.atOffset(ZoneOffset.UTC).toString()));
+    }
+
+    @Test
+    void test_updateTeam_nullBody() throws Exception {
+
+        //--------------------------------------------------
+        // EXECUTE & VERIFY RESULTS
+        mockMvc.perform(put("/teams")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(null)) // this is the test
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest())
+                .andDo(result -> System.out.println(result.getResponse().getContentAsString())); // print the response
+    }
+
+    @Test
+    void test_updateTeam_noId() throws Exception {
+        //--------------------------------------------------
+        // SET VALUES
+
+        // create the one to send in the request
+        Team team = new Team(
+                "Mules",
+                Rink.BAIREL,
+                Level.D5,
+                "#b88907",
+                "#000000",
+                "#c42323",
+                "logo.com"
+        );
+        team.setCreatedAt(DATE);
+        team.setUpdatedAt(DATE);
+
+
+        //--------------------------------------------------
+        // EXECUTE & VERIFY RESULTS
+        mockMvc.perform(put("/teams")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(team))
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest())
+                .andDo(result -> System.out.println(result.getResponse().getContentAsString())); // print the response
+    }
+
+    @Test
+    void test_updateTeam_noExistingTeam() throws Exception {
+        //--------------------------------------------------
+        // SET VALUES
+
+        // create the one to send in the request
+        Team team = new Team(
+                "Mules",
+                Rink.BAIREL,
+                Level.D5,
+                "#b88907",
+                "#000000",
+                "#c42323",
+                "logo.com"
+        );
+        team.setId(1L);
+        team.setCreatedAt(DATE);
+        team.setUpdatedAt(DATE);
+
+        //--------------------------------------------------
+        // CONFIGURE MOCKS
+        when(teamRepo.findById(1L)).thenReturn(Optional.empty());
+
+        //--------------------------------------------------
+        // EXECUTE & VERIFY RESULTS
+        mockMvc.perform(put("/teams")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(team))
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest())
+                .andDo(result -> System.out.println(result.getResponse().getContentAsString())); // print the response
+    }
+
+    @Test
+    void test_updateTeam_conflict() throws Exception {
+        //--------------------------------------------------
+        // SET VALUES
+        Team team = new Team(
+                "Mules",
+                Rink.BAIREL,
+                Level.D5,
+                "#b88907",
+                "#000000",
+                "#c42323",
+                "logo.com"
+        );
+        team.setId(1L);
+        team.setCreatedAt(DATE);
+        team.setUpdatedAt(DATE);
+
+        //--------------------------------------------------
+        // CONFIGURE MOCKS
+        when(teamRepo.findById(1L)).thenReturn(Optional.of(team));
+        when(teamRepo.save(any())).thenThrow(new OptimisticLockingFailureException("DB conflict"));
+
+        //--------------------------------------------------
+        // EXECUTE & VERIFY RESULTS
+        mockMvc.perform(put("/teams")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(team))
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest())
+                .andDo(result -> System.out.println(result.getResponse().getContentAsString())); // print the response
+    }
+
+    @Test
+    void test_updateTeam_error() throws Exception {
+        //--------------------------------------------------
+        // SET VALUES
+        Team team = new Team(
+                "Mules",
+                Rink.BAIREL,
+                Level.D5,
+                "#b88907",
+                "#000000",
+                "#c42323",
+                "logo.com"
+        );
+        team.setId(1L);
+        team.setCreatedAt(DATE);
+        team.setUpdatedAt(DATE);
+
+        //--------------------------------------------------
+        // CONFIGURE MOCKS
+        when(teamRepo.findById(1L)).thenReturn(Optional.of(team));
+        when(teamRepo.save(any())).thenThrow(new IllegalArgumentException("DB error"));
+
+        //--------------------------------------------------
+        // EXECUTE & VERIFY RESULTS
+        mockMvc.perform(put("/teams")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(team))
                         .accept(MediaType.APPLICATION_JSON))

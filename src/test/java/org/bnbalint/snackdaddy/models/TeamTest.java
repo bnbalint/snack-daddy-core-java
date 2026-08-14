@@ -33,7 +33,7 @@ public class TeamTest {
                 "#c42323",
                 "logo.com"
         );
-        team.setId(1);
+        team.setId(1L);
         team.setCreatedAt(DATE);
         team.setUpdatedAt(DATE);
         System.out.println("Team = " + team);

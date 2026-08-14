@@ -50,7 +50,7 @@ public class IngredientControllerTest {
         //--------------------------------------------------
         // SET VALUES
         Ingredient ingredient = new Ingredient("Pecan");
-        ingredient.setId(1);
+        ingredient.setId(1L);
 
         //--------------------------------------------------
         // CONFIGURE MOCKS
@@ -97,7 +97,7 @@ public class IngredientControllerTest {
 
         // create the one to return from the mock database
         Ingredient savedIngredient = new Ingredient("Pecan");
-        savedIngredient.setId(1);
+        savedIngredient.setId(1L);
         savedIngredient.setCreatedAt(DATE);
         savedIngredient.setUpdatedAt(DATE);
 

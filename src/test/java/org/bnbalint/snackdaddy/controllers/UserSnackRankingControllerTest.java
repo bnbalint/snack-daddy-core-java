@@ -55,27 +55,27 @@ public class UserSnackRankingControllerTest {
                 "#c42323",
                 ""
         );
-        team.setId(1);
+        team.setId(1L);
         team.setCreatedAt(DATE);
         team.setUpdatedAt(DATE);
         Team[] teams = { team };
 
         Ingredient ingredient = new Ingredient("Pecan");
-        ingredient.setId(1);
+        ingredient.setId(1L);
         ingredient.setCreatedAt(DATE);
         ingredient.setUpdatedAt(DATE);
         Ingredient[] allergies = { ingredient };
 
         User user = new User("Roger", "Hogwarts", "r.h@gmail.com", teams, allergies);
-        user.setId(1);
+        user.setId(1L);
         user.setCreatedAt(DATE);
         user.setUpdatedAt(DATE);
         System.out.println("User = " + user);
 
-        Ingredient ingredient1 = makeIngredient("Rice Crispy Cereal", 4);
-        Ingredient ingredient2 = makeIngredient("Margarine", 5);
-        Ingredient ingredient3 = makeIngredient("Marshmallow", 6);
-        Ingredient ingredient4 = makeIngredient("Vanilla", 7);
+        Ingredient ingredient1 = makeIngredient("Rice Crispy Cereal", 4L);
+        Ingredient ingredient2 = makeIngredient("Margarine", 5L);
+        Ingredient ingredient3 = makeIngredient("Marshmallow", 6L);
+        Ingredient ingredient4 = makeIngredient("Vanilla", 7L);
         Ingredient[] ingredients = { ingredient1, ingredient2, ingredient3, ingredient4 };
         Snack snack = new Snack(
                 "Rice Crispie Treat",
@@ -84,7 +84,7 @@ public class UserSnackRankingControllerTest {
                 2,
                 ingredients
         );
-        snack.setId(1);
+        snack.setId(1L);
         snack.setCreatedAt(DATE);
         snack.setUpdatedAt(DATE);
         System.out.println("Snack = " + snack);
@@ -161,27 +161,27 @@ public class UserSnackRankingControllerTest {
                 "#c42323",
                 ""
         );
-        team.setId(1);
+        team.setId(1L);
         team.setCreatedAt(DATE);
         team.setUpdatedAt(DATE);
         Team[] teams = { team };
 
         Ingredient ingredient = new Ingredient("Pecan");
-        ingredient.setId(1);
+        ingredient.setId(1L);
         ingredient.setCreatedAt(DATE);
         ingredient.setUpdatedAt(DATE);
         Ingredient[] allergies = { ingredient };
 
         User user = new User("Roger", "Hogwarts", "r.h@gmail.com", teams, allergies);
-        user.setId(1);
+        user.setId(1L);
         user.setCreatedAt(DATE);
         user.setUpdatedAt(DATE);
         System.out.println("User = " + user);
 
-        Ingredient ingredient1 = makeIngredient("Rice Crispy Cereal", 4);
-        Ingredient ingredient2 = makeIngredient("Margarine", 5);
-        Ingredient ingredient3 = makeIngredient("Marshmallow", 6);
-        Ingredient ingredient4 = makeIngredient("Vanilla", 7);
+        Ingredient ingredient1 = makeIngredient("Rice Crispy Cereal", 4L);
+        Ingredient ingredient2 = makeIngredient("Margarine", 5L);
+        Ingredient ingredient3 = makeIngredient("Marshmallow", 6L);
+        Ingredient ingredient4 = makeIngredient("Vanilla", 7L);
         Ingredient[] ingredients = { ingredient1, ingredient2, ingredient3, ingredient4 };
         Snack snack = new Snack(
                 "Rice Crispie Treat",
@@ -190,7 +190,7 @@ public class UserSnackRankingControllerTest {
                 2,
                 ingredients
         );
-        snack.setId(1);
+        snack.setId(1L);
         snack.setCreatedAt(DATE);
         snack.setUpdatedAt(DATE);
         System.out.println("Snack = " + snack);
@@ -250,27 +250,27 @@ public class UserSnackRankingControllerTest {
                 "#c42323",
                 ""
         );
-        team.setId(1);
+        team.setId(1L);
         team.setCreatedAt(DATE);
         team.setUpdatedAt(DATE);
         Team[] teams = { team };
 
         Ingredient ingredient = new Ingredient("Pecan");
-        ingredient.setId(1);
+        ingredient.setId(1L);
         ingredient.setCreatedAt(DATE);
         ingredient.setUpdatedAt(DATE);
         Ingredient[] allergies = { ingredient };
 
         User user = new User("Roger", "Hogwarts", "r.h@gmail.com", teams, allergies);
-        user.setId(1);
+        user.setId(1L);
         user.setCreatedAt(DATE);
         user.setUpdatedAt(DATE);
         System.out.println("User = " + user);
 
-        Ingredient ingredient1 = makeIngredient("Rice Crispy Cereal", 4);
-        Ingredient ingredient2 = makeIngredient("Margarine", 5);
-        Ingredient ingredient3 = makeIngredient("Marshmallow", 6);
-        Ingredient ingredient4 = makeIngredient("Vanilla", 7);
+        Ingredient ingredient1 = makeIngredient("Rice Crispy Cereal", 4L);
+        Ingredient ingredient2 = makeIngredient("Margarine", 5L);
+        Ingredient ingredient3 = makeIngredient("Marshmallow", 6L);
+        Ingredient ingredient4 = makeIngredient("Vanilla", 7L);
         Ingredient[] ingredients = { ingredient1, ingredient2, ingredient3, ingredient4 };
         Snack snack = new Snack(
                 "Rice Crispie Treat",
@@ -279,7 +279,7 @@ public class UserSnackRankingControllerTest {
                 2,
                 ingredients
         );
-        snack.setId(1);
+        snack.setId(1L);
         snack.setCreatedAt(DATE);
         snack.setUpdatedAt(DATE);
         System.out.println("Snack = " + snack);
@@ -315,27 +315,27 @@ public class UserSnackRankingControllerTest {
                 "#c42323",
                 ""
         );
-        team.setId(1);
+        team.setId(1L);
         team.setCreatedAt(DATE);
         team.setUpdatedAt(DATE);
         Team[] teams = { team };
 
         Ingredient ingredient = new Ingredient("Pecan");
-        ingredient.setId(1);
+        ingredient.setId(1L);
         ingredient.setCreatedAt(DATE);
         ingredient.setUpdatedAt(DATE);
         Ingredient[] allergies = { ingredient };
 
         User user = new User("Roger", "Hogwarts", "r.h@gmail.com", teams, allergies);
-        user.setId(1);
+        user.setId(1L);
         user.setCreatedAt(DATE);
         user.setUpdatedAt(DATE);
         System.out.println("User = " + user);
 
-        Ingredient ingredient1 = makeIngredient("Rice Crispy Cereal", 4);
-        Ingredient ingredient2 = makeIngredient("Margarine", 5);
-        Ingredient ingredient3 = makeIngredient("Marshmallow", 6);
-        Ingredient ingredient4 = makeIngredient("Vanilla", 7);
+        Ingredient ingredient1 = makeIngredient("Rice Crispy Cereal", 4L);
+        Ingredient ingredient2 = makeIngredient("Margarine", 5L);
+        Ingredient ingredient3 = makeIngredient("Marshmallow", 6L);
+        Ingredient ingredient4 = makeIngredient("Vanilla", 7L);
         Ingredient[] ingredients = { ingredient1, ingredient2, ingredient3, ingredient4 };
         Snack snack = new Snack(
                 "Rice Crispie Treat",
@@ -344,7 +344,7 @@ public class UserSnackRankingControllerTest {
                 2,
                 ingredients
         );
-        snack.setId(1);
+        snack.setId(1L);
         snack.setCreatedAt(DATE);
         snack.setUpdatedAt(DATE);
         System.out.println("Snack = " + snack);
@@ -386,13 +386,13 @@ public class UserSnackRankingControllerTest {
                 "#c42323",
                 ""
         );
-        team.setId(1);
+        team.setId(1L);
         team.setCreatedAt(DATE);
         team.setUpdatedAt(DATE);
         Team[] teams = { team };
 
         Ingredient ingredient = new Ingredient("Pecan");
-        ingredient.setId(1);
+        ingredient.setId(1L);
         ingredient.setCreatedAt(DATE);
         ingredient.setUpdatedAt(DATE);
         Ingredient[] allergies = { ingredient };
@@ -403,10 +403,10 @@ public class UserSnackRankingControllerTest {
         user.setUpdatedAt(DATE);
         System.out.println("User = " + user);
 
-        Ingredient ingredient1 = makeIngredient("Rice Crispy Cereal", 4);
-        Ingredient ingredient2 = makeIngredient("Margarine", 5);
-        Ingredient ingredient3 = makeIngredient("Marshmallow", 6);
-        Ingredient ingredient4 = makeIngredient("Vanilla", 7);
+        Ingredient ingredient1 = makeIngredient("Rice Crispy Cereal", 4L);
+        Ingredient ingredient2 = makeIngredient("Margarine", 5L);
+        Ingredient ingredient3 = makeIngredient("Marshmallow", 6L);
+        Ingredient ingredient4 = makeIngredient("Vanilla", 7L);
         Ingredient[] ingredients = { ingredient1, ingredient2, ingredient3, ingredient4 };
         Snack snack = new Snack(
                 "Rice Crispie Treat",
@@ -415,7 +415,7 @@ public class UserSnackRankingControllerTest {
                 2,
                 ingredients
         );
-        snack.setId(1);
+        snack.setId(1L);
         snack.setCreatedAt(DATE);
         snack.setUpdatedAt(DATE);
         System.out.println("Snack = " + snack);
@@ -519,27 +519,27 @@ public class UserSnackRankingControllerTest {
                 "#c42323",
                 ""
         );
-        team.setId(1);
+        team.setId(1L);
         team.setCreatedAt(DATE);
         team.setUpdatedAt(DATE);
         Team[] teams = { team };
 
         Ingredient ingredient = new Ingredient("Pecan");
-        ingredient.setId(1);
+        ingredient.setId(1L);
         ingredient.setCreatedAt(DATE);
         ingredient.setUpdatedAt(DATE);
         Ingredient[] allergies = { ingredient };
 
         User user = new User("Roger", "Hogwarts", "r.h@gmail.com", teams, allergies);
-        user.setId(1);
+        user.setId(1L);
         user.setCreatedAt(DATE);
         user.setUpdatedAt(DATE);
         System.out.println("User = " + user);
 
-        Ingredient ingredient1 = makeIngredient("Rice Crispy Cereal", 4);
-        Ingredient ingredient2 = makeIngredient("Margarine", 5);
-        Ingredient ingredient3 = makeIngredient("Marshmallow", 6);
-        Ingredient ingredient4 = makeIngredient("Vanilla", 7);
+        Ingredient ingredient1 = makeIngredient("Rice Crispy Cereal", 4L);
+        Ingredient ingredient2 = makeIngredient("Margarine", 5L);
+        Ingredient ingredient3 = makeIngredient("Marshmallow", 6L);
+        Ingredient ingredient4 = makeIngredient("Vanilla", 7L);
         Ingredient[] ingredients = { ingredient1, ingredient2, ingredient3, ingredient4 };
         Snack snack = new Snack(
                 "Rice Crispie Treat",
@@ -548,7 +548,7 @@ public class UserSnackRankingControllerTest {
                 2,
                 ingredients
         );
-        snack.setId(1);
+        snack.setId(1L);
         snack.setCreatedAt(DATE);
         snack.setUpdatedAt(DATE);
         System.out.println("Snack = " + snack);
@@ -623,27 +623,27 @@ public class UserSnackRankingControllerTest {
                 "#c42323",
                 ""
         );
-        team.setId(1);
+        team.setId(1L);
         team.setCreatedAt(DATE);
         team.setUpdatedAt(DATE);
         Team[] teams = { team };
 
         Ingredient ingredient = new Ingredient("Pecan");
-        ingredient.setId(1);
+        ingredient.setId(1L);
         ingredient.setCreatedAt(DATE);
         ingredient.setUpdatedAt(DATE);
         Ingredient[] allergies = { ingredient };
 
         User user = new User("Roger", "Hogwarts", "r.h@gmail.com", teams, allergies);
-        user.setId(1);
+        user.setId(1L);
         user.setCreatedAt(DATE);
         user.setUpdatedAt(DATE);
         System.out.println("User = " + user);
 
-        Ingredient ingredient1 = makeIngredient("Rice Crispy Cereal", 4);
-        Ingredient ingredient2 = makeIngredient("Margarine", 5);
-        Ingredient ingredient3 = makeIngredient("Marshmallow", 6);
-        Ingredient ingredient4 = makeIngredient("Vanilla", 7);
+        Ingredient ingredient1 = makeIngredient("Rice Crispy Cereal", 4L);
+        Ingredient ingredient2 = makeIngredient("Margarine", 5L);
+        Ingredient ingredient3 = makeIngredient("Marshmallow", 6L);
+        Ingredient ingredient4 = makeIngredient("Vanilla", 7L);
         Ingredient[] ingredients = { ingredient1, ingredient2, ingredient3, ingredient4 };
         Snack snack = new Snack(
                 "Rice Crispie Treat",
@@ -652,7 +652,7 @@ public class UserSnackRankingControllerTest {
                 2,
                 ingredients
         );
-        snack.setId(1);
+        snack.setId(1L);
         snack.setCreatedAt(DATE);
         snack.setUpdatedAt(DATE);
         System.out.println("Snack = " + snack);
@@ -690,27 +690,27 @@ public class UserSnackRankingControllerTest {
                 "#c42323",
                 ""
         );
-        team.setId(1);
+        team.setId(1L);
         team.setCreatedAt(DATE);
         team.setUpdatedAt(DATE);
         Team[] teams = { team };
 
         Ingredient ingredient = new Ingredient("Pecan");
-        ingredient.setId(1);
+        ingredient.setId(1L);
         ingredient.setCreatedAt(DATE);
         ingredient.setUpdatedAt(DATE);
         Ingredient[] allergies = { ingredient };
 
         User user = new User("Roger", "Hogwarts", "r.h@gmail.com", teams, allergies);
-        user.setId(1);
+        user.setId(1L);
         user.setCreatedAt(DATE);
         user.setUpdatedAt(DATE);
         System.out.println("User = " + user);
 
-        Ingredient ingredient1 = makeIngredient("Rice Crispy Cereal", 4);
-        Ingredient ingredient2 = makeIngredient("Margarine", 5);
-        Ingredient ingredient3 = makeIngredient("Marshmallow", 6);
-        Ingredient ingredient4 = makeIngredient("Vanilla", 7);
+        Ingredient ingredient1 = makeIngredient("Rice Crispy Cereal", 4L);
+        Ingredient ingredient2 = makeIngredient("Margarine", 5L);
+        Ingredient ingredient3 = makeIngredient("Marshmallow", 6L);
+        Ingredient ingredient4 = makeIngredient("Vanilla", 7L);
         Ingredient[] ingredients = { ingredient1, ingredient2, ingredient3, ingredient4 };
         Snack snack = new Snack(
                 "Rice Crispie Treat",
@@ -719,7 +719,7 @@ public class UserSnackRankingControllerTest {
                 2,
                 ingredients
         );
-        snack.setId(1);
+        snack.setId(1L);
         snack.setCreatedAt(DATE);
         snack.setUpdatedAt(DATE);
         System.out.println("Snack = " + snack);
@@ -752,7 +752,7 @@ public class UserSnackRankingControllerTest {
      * @param id - the id to set for the ingredient
      * @return the new ingredient, with the id and created/updated fields set
      */
-    Ingredient makeIngredient(String name, int id) {
+    Ingredient makeIngredient(String name, Long id) {
         Ingredient ingredient = new Ingredient(name);
         ingredient.setId(id);
         ingredient.setCreatedAt(DATE);

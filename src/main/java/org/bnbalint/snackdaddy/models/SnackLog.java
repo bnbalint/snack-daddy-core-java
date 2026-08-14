@@ -19,7 +19,7 @@ public class SnackLog {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(insertable = false, updatable = false)
-    private long id;
+    private Long id;
 
     @OneToOne
     @JoinColumn(name = "snack_id", referencedColumnName = "id")
@@ -55,11 +55,11 @@ public class SnackLog {
     //-------------------------------------------
     // Getters and Setters
     //
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

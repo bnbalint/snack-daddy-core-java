@@ -48,7 +48,7 @@ public class SuggestedAllergyControllerTest {
         //--------------------------------------------------
         // SET VALUES
         SuggestedAllergy suggestedAllergy = new SuggestedAllergy("Pine nut");
-        suggestedAllergy.setId(1);
+        suggestedAllergy.setId(1L);
 
         //--------------------------------------------------
         // CONFIGURE MOCKS
@@ -95,7 +95,7 @@ public class SuggestedAllergyControllerTest {
 
         // create the one to return from the mock database
         SuggestedAllergy savedSuggestion = new SuggestedAllergy("Pine nut");
-        savedSuggestion.setId(1);
+        savedSuggestion.setId(1L);
         savedSuggestion.setCreatedAt(DATE);
         savedSuggestion.setUpdatedAt(DATE);
 

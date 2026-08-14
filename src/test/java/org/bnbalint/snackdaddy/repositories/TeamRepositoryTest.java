@@ -93,4 +93,46 @@ public class TeamRepositoryTest {
         assertNotNull(savedTeam.getCreatedAt());
         assertNotNull(savedTeam.getUpdatedAt());
     }
+
+
+    @Test
+    void test_findById() {
+
+        //--------------------------------------------------
+        // SET VALUES
+        Team team = new Team(
+                "Mules",
+                Rink.BAIREL,
+                Level.D5,
+                "#b88907",
+                "#000000",
+                "#c42323",
+                ""
+        );
+
+        //--------------------------------------------------
+        // CONFIGURE MOCKS
+        // Persist the data to the database
+        entityManager.persistAndFlush(team);
+        System.out.println("Saved team = " + team);
+
+        //--------------------------------------------------
+        // EXECUTE
+        var result = teamRepo.findById(team.getId());
+        var foundTeam = result.orElse(null);
+
+
+        //--------------------------------------------------
+        // VERIFY RESULTS
+        assertNotNull(foundTeam);
+        System.out.println("Found teams = " + foundTeam);
+
+        assertEquals("Mules", foundTeam.getName());
+        assertEquals(Rink.BAIREL, foundTeam.getRink());
+        assertEquals(Level.D5, foundTeam.getLevel());
+        assertEquals("#b88907", foundTeam.getPrimaryColor());
+        assertEquals("#000000", foundTeam.getSecondaryColor());
+        assertEquals("#c42323", foundTeam.getTernaryColor());
+        assertEquals("", foundTeam.getLogoUrl());
+    }
 }

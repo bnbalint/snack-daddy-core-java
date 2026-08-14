@@ -49,10 +49,10 @@ public class SnackLogControllerTest {
     void test_getAllSnackLogEntries_success() throws Exception {
         //--------------------------------------------------
         // SET VALUES
-        Ingredient ingredient1 = makeIngredient("Rice Crispy Cereal", 4);
-        Ingredient ingredient2 = makeIngredient("Margarine", 5);
-        Ingredient ingredient3 = makeIngredient("Marshmallow", 6);
-        Ingredient ingredient4 = makeIngredient("Vanilla", 7);
+        Ingredient ingredient1 = makeIngredient("Rice Crispy Cereal", 4L);
+        Ingredient ingredient2 = makeIngredient("Margarine", 5L);
+        Ingredient ingredient3 = makeIngredient("Marshmallow", 6L);
+        Ingredient ingredient4 = makeIngredient("Vanilla", 7L);
         Ingredient[] ingredients = { ingredient1, ingredient2, ingredient3, ingredient4 };
         Snack snack = new Snack(
                 "Rice Crispie Treat",
@@ -61,7 +61,7 @@ public class SnackLogControllerTest {
                 2,
                 ingredients
         );
-        snack.setId(1);
+        snack.setId(1L);
         snack.setCreatedAt(DATE);
         snack.setUpdatedAt(DATE);
 
@@ -74,12 +74,12 @@ public class SnackLogControllerTest {
                 "#c42323",
                 "logo.com"
         );
-        team.setId(1);
+        team.setId(1L);
         team.setCreatedAt(DATE);
         team.setUpdatedAt(DATE);
 
         SnackLog snackLogEntry = new SnackLog(snack, team, LocalDate.of(2026, Month.JUNE, 1));
-        snackLogEntry.setId(1);
+        snackLogEntry.setId(1L);
         snackLogEntry.setCreatedAt(DATE);
         snackLogEntry.setUpdatedAt(DATE);
         System.out.println("SnackLogEntry = " + snackLogEntry);
@@ -143,10 +143,10 @@ public class SnackLogControllerTest {
     void test_addToSnackLog_success() throws Exception {
         //--------------------------------------------------
         // SET VALUES
-        Ingredient ingredient1 = makeIngredient("Rice Crispy Cereal", 4);
-        Ingredient ingredient2 = makeIngredient("Margarine", 5);
-        Ingredient ingredient3 = makeIngredient("Marshmallow", 6);
-        Ingredient ingredient4 = makeIngredient("Vanilla", 7);
+        Ingredient ingredient1 = makeIngredient("Rice Crispy Cereal", 4L);
+        Ingredient ingredient2 = makeIngredient("Margarine", 5L);
+        Ingredient ingredient3 = makeIngredient("Marshmallow", 6L);
+        Ingredient ingredient4 = makeIngredient("Vanilla", 7L);
         Ingredient[] ingredients = { ingredient1, ingredient2, ingredient3, ingredient4 };
         Snack snack = new Snack(
                 "Rice Crispie Treat",
@@ -155,7 +155,7 @@ public class SnackLogControllerTest {
                 2,
                 ingredients
         );
-        snack.setId(1);
+        snack.setId(1L);
         snack.setCreatedAt(DATE);
         snack.setUpdatedAt(DATE);
 
@@ -168,7 +168,7 @@ public class SnackLogControllerTest {
                 "#c42323",
                 "logo.com"
         );
-        team.setId(1);
+        team.setId(1L);
         team.setCreatedAt(DATE);
         team.setUpdatedAt(DATE);
 
@@ -177,7 +177,7 @@ public class SnackLogControllerTest {
 
         // create the one to return from the mock database
         SnackLog savedSnackLogEntry = new SnackLog(snack, team, LocalDate.of(2026, Month.JUNE, 1));
-        savedSnackLogEntry.setId(1);
+        savedSnackLogEntry.setId(1L);
         savedSnackLogEntry.setCreatedAt(DATE);
         savedSnackLogEntry.setUpdatedAt(DATE);
 
@@ -219,10 +219,10 @@ public class SnackLogControllerTest {
     void test_addToSnackLog_conflict() throws Exception {
         //--------------------------------------------------
         // SET VALUES
-        Ingredient ingredient1 = makeIngredient("Rice Crispy Cereal", 4);
-        Ingredient ingredient2 = makeIngredient("Margarine", 5);
-        Ingredient ingredient3 = makeIngredient("Marshmallow", 6);
-        Ingredient ingredient4 = makeIngredient("Vanilla", 7);
+        Ingredient ingredient1 = makeIngredient("Rice Crispy Cereal", 4L);
+        Ingredient ingredient2 = makeIngredient("Margarine", 5L);
+        Ingredient ingredient3 = makeIngredient("Marshmallow", 6L);
+        Ingredient ingredient4 = makeIngredient("Vanilla", 7L);
         Ingredient[] ingredients = { ingredient1, ingredient2, ingredient3, ingredient4 };
         Snack snack = new Snack(
                 "Rice Crispie Treat",
@@ -231,7 +231,7 @@ public class SnackLogControllerTest {
                 2,
                 ingredients
         );
-        snack.setId(1);
+        snack.setId(1L);
         snack.setCreatedAt(DATE);
         snack.setUpdatedAt(DATE);
 
@@ -244,7 +244,7 @@ public class SnackLogControllerTest {
                 "#c42323",
                 "logo.com"
         );
-        team.setId(1);
+        team.setId(1L);
         team.setCreatedAt(DATE);
         team.setUpdatedAt(DATE);
 
@@ -269,10 +269,10 @@ public class SnackLogControllerTest {
     void test_addToSnackLog_error() throws Exception {
         //--------------------------------------------------
         // SET VALUES
-        Ingredient ingredient1 = makeIngredient("Rice Crispy Cereal", 4);
-        Ingredient ingredient2 = makeIngredient("Margarine", 5);
-        Ingredient ingredient3 = makeIngredient("Marshmallow", 6);
-        Ingredient ingredient4 = makeIngredient("Vanilla", 7);
+        Ingredient ingredient1 = makeIngredient("Rice Crispy Cereal", 4L);
+        Ingredient ingredient2 = makeIngredient("Margarine", 5L);
+        Ingredient ingredient3 = makeIngredient("Marshmallow", 6L);
+        Ingredient ingredient4 = makeIngredient("Vanilla", 7L);
         Ingredient[] ingredients = { ingredient1, ingredient2, ingredient3, ingredient4 };
         Snack snack = new Snack(
                 "Rice Crispie Treat",
@@ -281,7 +281,7 @@ public class SnackLogControllerTest {
                 2,
                 ingredients
         );
-        snack.setId(1);
+        snack.setId(1L);
         snack.setCreatedAt(DATE);
         snack.setUpdatedAt(DATE);
 
@@ -294,7 +294,7 @@ public class SnackLogControllerTest {
                 "#c42323",
                 "logo.com"
         );
-        team.setId(1);
+        team.setId(1L);
         team.setCreatedAt(DATE);
         team.setUpdatedAt(DATE);
 
@@ -323,7 +323,7 @@ public class SnackLogControllerTest {
      * @param id - the id to set for the ingredient
      * @return the new ingredient, with the id and created/updated fields set
      */
-    Ingredient makeIngredient(String name, int id) {
+    Ingredient makeIngredient(String name, Long id) {
         Ingredient ingredient = new Ingredient(name);
         ingredient.setId(id);
         ingredient.setCreatedAt(DATE);

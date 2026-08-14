@@ -58,19 +58,19 @@ public class UserControllerTest {
                 "#c42323",
                 ""
         );
-        team.setId(1);
+        team.setId(1L);
         team.setCreatedAt(DATE);
         team.setUpdatedAt(DATE);
         Team[] teams = { team };
 
         Ingredient ingredient = new Ingredient("Pecan");
-        ingredient.setId(1);
+        ingredient.setId(1L);
         ingredient.setCreatedAt(DATE);
         ingredient.setUpdatedAt(DATE);
         Ingredient[] allergies = { ingredient };
 
         User user = new User("Roger", "Hogwarts", "r.h@gmail.com", teams, allergies);
-        user.setId(1);
+        user.setId(1L);
         user.setCreatedAt(DATE);
         user.setUpdatedAt(DATE);
         System.out.println("User = " + user);
@@ -129,13 +129,13 @@ public class UserControllerTest {
                 "#c42323",
                 ""
         );
-        team.setId(1);
+        team.setId(1L);
         team.setCreatedAt(DATE);
         team.setUpdatedAt(DATE);
         Team[] teams = { team };
 
         Ingredient ingredient = new Ingredient("Pecan");
-        ingredient.setId(1);
+        ingredient.setId(1L);
         ingredient.setCreatedAt(DATE);
         ingredient.setUpdatedAt(DATE);
         Ingredient[] allergies = { ingredient };
@@ -145,7 +145,7 @@ public class UserControllerTest {
 
         // create the one to return from the mock database
         User savedUser = new User("Roger", "Hogwarts", "r.h@gmail.com", teams, allergies);
-        savedUser.setId(1);
+        savedUser.setId(1L);
         savedUser.setCreatedAt(DATE);
         savedUser.setUpdatedAt(DATE);
 
@@ -184,13 +184,13 @@ public class UserControllerTest {
                 "#c42323",
                 ""
         );
-        team.setId(1);
+        team.setId(1L);
         team.setCreatedAt(DATE);
         team.setUpdatedAt(DATE);
         Team[] teams = { team };
 
         Ingredient ingredient = new Ingredient("Pecan");
-        ingredient.setId(1);
+        ingredient.setId(1L);
         ingredient.setCreatedAt(DATE);
         ingredient.setUpdatedAt(DATE);
         Ingredient[] allergies = { ingredient };
@@ -225,13 +225,13 @@ public class UserControllerTest {
                 "#c42323",
                 ""
         );
-        team.setId(1);
+        team.setId(1L);
         team.setCreatedAt(DATE);
         team.setUpdatedAt(DATE);
         Team[] teams = { team };
 
         Ingredient ingredient = new Ingredient("Pecan");
-        ingredient.setId(1);
+        ingredient.setId(1L);
         ingredient.setCreatedAt(DATE);
         ingredient.setUpdatedAt(DATE);
         Ingredient[] allergies = { ingredient };
@@ -376,20 +376,20 @@ public class UserControllerTest {
                 "#c42323",
                 ""
         );
-        team.setId(1);
+        team.setId(1L);
         team.setCreatedAt(DATE);
         team.setUpdatedAt(DATE);
         Team[] teams = { team };
 
         Ingredient ingredient = new Ingredient("Pecan");
-        ingredient.setId(1);
+        ingredient.setId(1L);
         ingredient.setCreatedAt(DATE);
         ingredient.setUpdatedAt(DATE);
         Ingredient[] allergies = { ingredient };
 
         // create the one to send in the request
         User user = new User("Roger", "Hogwarts", "r.h@gmail.com", teams, allergies);
-        user.setId(1);
+        user.setId(1L);
         user.setCreatedAt(DATE);
         user.setUpdatedAt(DATE);
 
@@ -447,13 +447,13 @@ public class UserControllerTest {
                 "#c42323",
                 ""
         );
-        team.setId(1);
+        team.setId(1L);
         team.setCreatedAt(DATE);
         team.setUpdatedAt(DATE);
         Team[] teams = { team };
 
         Ingredient ingredient = new Ingredient("Pecan");
-        ingredient.setId(1);
+        ingredient.setId(1L);
         ingredient.setCreatedAt(DATE);
         ingredient.setUpdatedAt(DATE);
         Ingredient[] allergies = { ingredient };
@@ -486,19 +486,19 @@ public class UserControllerTest {
                 "#c42323",
                 ""
         );
-        team.setId(1);
+        team.setId(1L);
         team.setCreatedAt(DATE);
         team.setUpdatedAt(DATE);
         Team[] teams = { team };
 
         Ingredient ingredient = new Ingredient("Pecan");
-        ingredient.setId(1);
+        ingredient.setId(1L);
         ingredient.setCreatedAt(DATE);
         ingredient.setUpdatedAt(DATE);
         Ingredient[] allergies = { ingredient };
 
         User user = new User("Roger", "Hogwarts", "r.h@gmail.com", teams, allergies);
-        user.setId(1);
+        user.setId(1L);
         user.setCreatedAt(DATE);
         user.setUpdatedAt(DATE);
         System.out.println("User = " + user);
@@ -530,19 +530,19 @@ public class UserControllerTest {
                 "#c42323",
                 ""
         );
-        team.setId(1);
+        team.setId(1L);
         team.setCreatedAt(DATE);
         team.setUpdatedAt(DATE);
         Team[] teams = { team };
 
         Ingredient ingredient = new Ingredient("Pecan");
-        ingredient.setId(1);
+        ingredient.setId(1L);
         ingredient.setCreatedAt(DATE);
         ingredient.setUpdatedAt(DATE);
         Ingredient[] allergies = { ingredient };
 
         User user = new User("Roger", "Hogwarts", "r.h@gmail.com", teams, allergies);
-        user.setId(1);
+        user.setId(1L);
         user.setCreatedAt(DATE);
         user.setUpdatedAt(DATE);
         System.out.println("User = " + user);

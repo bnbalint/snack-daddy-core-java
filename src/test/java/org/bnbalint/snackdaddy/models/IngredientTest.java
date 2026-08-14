@@ -25,7 +25,7 @@ public class IngredientTest {
         //--------------------------------------------------
         // SET VALUES
         Ingredient ingredient = new Ingredient("Pecan");
-        ingredient.setId(1);
+        ingredient.setId(1L);
         ingredient.setCreatedAt(DATE);
         ingredient.setUpdatedAt(DATE);
         System.out.println("Ingredient = " + ingredient);

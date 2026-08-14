@@ -18,7 +18,7 @@ public class Ingredient {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(insertable = false, updatable = false)
-    private long id;
+    private Long id;
 
     @Column
     private String name;
@@ -44,11 +44,11 @@ public class Ingredient {
     //-------------------------------------------
     // Getters and Setters
     //
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
