@@ -148,7 +148,7 @@ public class UserController {
             return ResponseEntity.badRequest().build();
         }
 
-        if (user.getId() == 0){
+        if (user.getId() == null || user.getId() == 0L){
             log.error("User must have a valid ID to be updated");
             return ResponseEntity.badRequest().build();
         }

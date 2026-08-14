@@ -264,7 +264,7 @@ public class UserControllerTest {
     void test_getUserById_success() throws Exception {
         //--------------------------------------------------
         // SET VALUES
-        long userId = 1L;
+        Long userId = 1L;
         Team[] teams = { };
         Ingredient[] allergies = {  };
 
@@ -313,7 +313,7 @@ public class UserControllerTest {
     void test_getUserById_negativeUserId() throws Exception {
         //--------------------------------------------------
         // SET VALUES
-        long userId = -2L;
+        Long userId = -2L;
 
         //--------------------------------------------------
         // EXECUTE & VERIFY RESULTS
@@ -327,7 +327,7 @@ public class UserControllerTest {
     void test_getUserById_notFound() throws Exception {
         //--------------------------------------------------
         // SET VALUES
-        long userId = 1L;
+        Long userId = 1L;
 
         //--------------------------------------------------
         // CONFIGURE MOCKS
@@ -345,7 +345,7 @@ public class UserControllerTest {
     void test_getUserById_error() throws Exception {
         //--------------------------------------------------
         // SET VALUES
-        long userId = 1L;
+        Long userId = 1L;
 
         //--------------------------------------------------
         // CONFIGURE MOCKS

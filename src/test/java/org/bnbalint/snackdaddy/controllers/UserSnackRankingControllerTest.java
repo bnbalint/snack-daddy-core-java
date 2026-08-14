@@ -376,7 +376,7 @@ public class UserSnackRankingControllerTest {
     void test_getRankingsByUserId_success() throws Exception {
         //--------------------------------------------------
         // SET VALUES
-        long userId = 1L;
+        Long userId = 1L;
         Team team = new Team(
                 "Mules",
                 Rink.BAIREL,
@@ -474,7 +474,7 @@ public class UserSnackRankingControllerTest {
     void test_getRankingsByUserId_negativeUserId() throws Exception {
         //--------------------------------------------------
         // SET VALUES
-        long userId = -2L;
+        Long userId = -2L;
 
         //--------------------------------------------------
         // EXECUTE & VERIFY RESULTS
@@ -488,7 +488,7 @@ public class UserSnackRankingControllerTest {
     void test_getRankingsByUserId_error() throws Exception {
         //--------------------------------------------------
         // SET VALUES
-        long userId = 1L;
+        Long userId = 1L;
 
         //--------------------------------------------------
         // CONFIGURE MOCKS

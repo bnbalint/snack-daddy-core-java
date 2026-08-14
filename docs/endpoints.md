@@ -98,7 +98,8 @@
 - Possible Errors
   - 415 → JSON body was unable to be parsed into the required Team format
   - 400 → request body is null (Java)
-  - 400 → Team in the request body already has an ID
+  - 400 → Team in the request body does NOT have an ID
+  - 400 → Team does not already exist in the database
   - 400 → conflict because the team already exists
 
 
