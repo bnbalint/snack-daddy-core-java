@@ -2,32 +2,40 @@
 
 ## Snack Entry
 - Add a new snack to the snacks table
-    - Name
-    - Sweet (checkbox)
-    - Savory (checkbox)
-    - Recipe url (optional)
-    - Difficulty (number, 1-10)
-    - Ingredients (checkboxes)
+  - Name
+  - Sweet (checkbox)
+  - Savory (checkbox)
+  - Recipe url (optional)
+  - Difficulty (number, 1-10)
+  - Ingredients (checkboxes)
 - View existing snacks down the side (scroll bar)
+
+## View/Edit Snacks
+- View all snacks as small rectangles (name and difficultly displayed)
+- Expand rectangles to see all details
+- Click small pencil icon to edit the details of a snack
 
 
 ## View / Modify Snack Difficulty
-- ** Drag and drop into numbered buckets (1-10)  TODO **
+- Drag and drop into numbered buckets (1-10)
 
 
 ## Team Entry
 - Add a new team to the teams table
-    - Team name
-    - Rink
-    - Level
-    - Colors (color picker)
-    - Upload image of logo
+  - Team name
+  - Rink
+  - Level
+  - Colors (color picker)
+  - Upload image of logo
 - View existing teams down the side (scroll bar)
+
+## View/Edit Teams
+- TODO
 
 
 ## Ingredient Entry
 - Add a new ingredient to the ingredients table
-    - Name
+  - Name
 - View existing ingredients down the side (scroll bar)
 
 
@@ -49,6 +57,9 @@
 
 
 
+
+
+
 # User Facing
 
 ## Register User
@@ -57,7 +68,7 @@
 - Email
 - Team(s)  [or a spouse]
 - Allergies (checkboxes)
-    - option for other with text --> this needs to be emailed to Britni so it can be added to the backend
+  - option for other with text --> this has its own submit button that uses a separate endpoint
 - Password
 
 
@@ -72,19 +83,17 @@
 
 ## View / Modify User Settings
 - View user details
-    - pulled from the users table (and linking tables)
-    - first name, last name, email address
-    - team membership
-    - allergies
-- ** Modify allergies - TODO **
-- ** Modify team membership - TODO **
+  - pulled from the users table (and linking tables)
+  - first name, last name, email address
+  - team membership
+  - allergies
 
 
 ## View / Modify Snack Ranking
-- Bucket for "Have not had"
-- Bucket for "No Rating" (aka do not remember, but have had)
+- Bucket for "HAVE_NOT_TRIED"
+- Bucket for "UNRANKED" (aka do not remember, but have had)
 - Bucket for "My Top 3"
-    - Limit to 3 in this bucket
-    - Preserve order in the bucket
+  - Limit to 3 in this bucket
+  - Preserve order in the bucket
 - Buckets for 1 (best) through 10 (worst) for scoring
 
