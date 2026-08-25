@@ -774,6 +774,10 @@
 - USAGE
   - Submit on [Log Snack Delivery](frontend.md#log-snack-delivery)
 - POST `/snack-log`
+- FUNCTIONALITY
+  - Adds the entry to the SnackLog
+  - Gets all users on the Team for the SnackLog entry
+  - For each user, adds an UNRANKED UserSnackRanking for the Snack (if a ranking does not already exist for the Snack - does nothing if a ranking already exists)
 - Body
    ```json
      {
@@ -843,6 +847,7 @@
   ```
 - Possible Errors
   - 415 → JSON body was unable to be parsed into the required SnackLog format
+  - 400 → Snack, Team or TeamId is null
 
 
 

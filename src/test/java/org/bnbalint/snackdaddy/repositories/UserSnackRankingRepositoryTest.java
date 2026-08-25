@@ -1,6 +1,7 @@
 package org.bnbalint.snackdaddy.repositories;
 
 import org.bnbalint.snackdaddy.models.*;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -196,5 +197,55 @@ public class UserSnackRankingRepositoryTest {
         assertEquals(true, secondSaved.getSnack().getSweet());
         assertEquals(false, secondSaved.getSnack().getSavory());
         assertEquals(2, secondSaved.getSnack().getDifficulty());
+    }
+
+    @Disabled("We might not be able to test this on the H2 test database")
+    @Test
+    void test_saveDoNothingOnConflict_saves() {
+
+        //--------------------------------------------------
+        // SET VALUES
+        User user = new User("Roger", "Hogwarts", "RankingTest2@gmail.com");
+        Ingredient[] ingredients = { };
+        Snack snack = new Snack("Ranking Test2", true, false, 2, ingredients);
+
+
+        //--------------------------------------------------
+        // EXECUTE
+        var updatedRows = userSnackRankingRepo.saveOnConflictDoNothing(user, snack, SnackRank.UNRANKED);
+        System.out.println("Updated rows = " + updatedRows);
+
+        //--------------------------------------------------
+        // VERIFY RESULTS
+        assertEquals(1, updatedRows);
+    }
+
+    @Disabled("We might not be able to test this on the H2 test database")
+    @Test
+    void test_saveDoNothingOnConflict_nothing() {
+
+        //--------------------------------------------------
+        // SET VALUES
+        User user = new User("Roger", "Hogwarts", "RankingTest2@gmail.com");
+        Ingredient[] ingredients = { };
+        Snack snack = new Snack("Ranking Test2", true, false, 2, ingredients);
+        UserSnackRanking ranking = new UserSnackRanking(snack, user, SnackRank.RANK_1);
+
+        // save normally first
+        var savedRanking = userSnackRankingRepo.saveAndFlush(ranking);
+        System.out.println("Saved ranking = " + savedRanking);
+
+        System.out.println("User = " + savedRanking.getUser());
+        System.out.println("Snack = " + savedRanking.getSnack());
+
+
+        //--------------------------------------------------
+        // EXECUTE
+        var updatedRows = userSnackRankingRepo.saveOnConflictDoNothing(savedRanking.getUser(), savedRanking.getSnack(), SnackRank.UNRANKED);
+
+
+        //--------------------------------------------------
+        // VERIFY RESULTS
+        assertEquals(0, updatedRows);
     }
 }
